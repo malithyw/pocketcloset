@@ -26,11 +26,11 @@ function App() {
           </Container>
           </Navbar>
           <Routes>
-              <Route path="/calendar" element={<Calendar/>} />
-              <Route path="/lookbooks" element={<Lookbooks/>} />
-              <Route path="/closet" element={<Closet/>} />
-              <Route path="/camera" element={<Camera/>} />
-              <Route path="home" element={<Home/>}/>
+              <Route path="#/calendar" element={<Calendar/>} />
+              <Route path="#/lookbooks" element={<Lookbooks/>} />
+              <Route path="#/closet" element={<Closet/>} />
+              <Route path="#/camera" element={<Camera/>} />
+              <Route path="#/home" element={<Home/>}/>
               <Route path="*" element={<Home/>}/>
           </Routes>
         </Router>
