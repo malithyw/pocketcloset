@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/pocketcloset/static/css/main.8d6a17ca.css",
-    "main.js": "/pocketcloset/static/js/main.1b33479d.js",
+    "main.js": "/pocketcloset/static/js/main.f9fbcc31.js",
     "index.html": "/pocketcloset/index.html",
     "main.8d6a17ca.css.map": "/pocketcloset/static/css/main.8d6a17ca.css.map",
-    "main.1b33479d.js.map": "/pocketcloset/static/js/main.1b33479d.js.map"
+    "main.f9fbcc31.js.map": "/pocketcloset/static/js/main.f9fbcc31.js.map"
   },
   "entrypoints": [
     "static/css/main.8d6a17ca.css",
-    "static/js/main.1b33479d.js"
+    "static/js/main.f9fbcc31.js"
   ]
 }
