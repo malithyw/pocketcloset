@@ -1,0 +1,16 @@
+{
+  "name": "pocketcloset",
+  "version": "1.0.0",
+  "description": "PocketCloset github!",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "react-scripts start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react-scripts": "^5.0.1"
+  }
+}
