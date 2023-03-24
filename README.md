@@ -1,1 +1,1 @@
-PocketCloset github!
+Hello, welcome to the PocketCloset github!
