@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Home from "./pages/Home";
 import { Navbar, Nav, Container} from 'react-bootstrap';
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import {HashRouter} from "react-router-dom"
 import Lookbooks from './pages/Lookbooks';
 import Closet from './pages/Closet';
 import Calendar from './pages/Calendar';
@@ -12,7 +13,7 @@ function App() {
   return (
     <div >
         <div>
-        <Router>
+        <HashRouter>
          <Navbar bg="light" fixed="bottom" >
           <Container>
           <Navbar.Brand href="/home">(home)</Navbar.Brand>
@@ -33,7 +34,7 @@ function App() {
               <Route path="#/home" element={<Home/>}/>
               <Route path="*" element={<Home/>}/>
           </Routes>
-        </Router>
+        </HashRouter>
        </div>
        </div>
   );
