@@ -1,0 +1,146 @@
+.screen {
+  justify-content: center;
+  height: 1000px;
+  background-image: url("./icons/background.png") ;
+}
+
+.top-row {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  display: flex;
+  align-items: flex-end;
+  color: white;
+}
+
+.top-button {
+  padding-left: 15px;
+  padding-right: 5px;
+  padding-bottom: 20px;
+}
+
+Button {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.top-button img {
+  width: 35px;
+  height: 35px;
+}
+
+.box {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 26px;
+  margin: 5px 10px;
+  text-align: center;
+  height: 30%;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.outfit-b {
+  height: 30%;
+}
+
+
+.clothing-b {
+  height: 10%;
+}
+
+.clothing-display {
+  display: flex;
+  overflow-x: hidden;
+}
+.clothing-item {
+  width: 50px;
+}
+
+.arrow {
+  font-size: 15px;
+  border-radius: 100px;
+  margin: 0px 10px;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  vertical-align: center;
+  padding-left: 7px;
+}
+
+.clothing-a-left {
+  border-color: #D77A97 !important;
+  color: #D77A97 !important;
+  margin-left: 0px;
+}
+.clothing-a-right {
+  border-color: #D77A97 !important;
+  color: #D77A97 !important;
+  margin-right: 0px;
+}
+
+.top-a {
+  border-color: white !important  
+}
+
+input {
+  border-radius: 50px;
+  justify-content: center;
+  border-color: white;
+  color: #D77A97;
+}
+
+input::placeholder {
+  color: #D77A97;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+}
+
+
+.date-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.weather-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin-top: 30px;
+}
+
+.search-icon {
+  color: white !important;
+}
+
+.corner-button {
+  color: #D77A97 !important;
+  position: absolute;
+}
+
+.outfit-item {
+  width: 40px;
+}
+.redo {
+  left: 40px;
+}
+
+
+.saved-outfits-b {
+  color: #D77A97 !important;
+  position: fixed;
+  top: 24%;
+  left: 3%;
+  width: 88%;
+  height: 54%;
+  background-color: white;
+  padding-top: 50px;
+}
+
