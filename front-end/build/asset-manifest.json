@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/pocketcloset/static/css/main.01758237.css",
+    "main.js": "/pocketcloset/static/js/main.c965bbf5.js",
+    "static/media/background.png": "/pocketcloset/static/media/background.1e0015097cbb44a2f6a6.png",
+    "static/media/real_background.png": "/pocketcloset/static/media/real_background.78ac31cd63f7aa103056.png",
+    "index.html": "/pocketcloset/index.html",
+    "main.01758237.css.map": "/pocketcloset/static/css/main.01758237.css.map",
+    "main.c965bbf5.js.map": "/pocketcloset/static/js/main.c965bbf5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.01758237.css",
+    "static/js/main.c965bbf5.js"
+  ]
+}
