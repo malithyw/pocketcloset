@@ -8,11 +8,15 @@ import Lookbooks from "./pages/Lookbooks";
 import Closet from "./pages/Closet";
 import Calendar from "./pages/Calendar";
 import Camera from "./pages/Camera";
+import Settings from "./pages/Settings";
 import cameraPNG from "./images/camera.png"
 import homePNG from "./images/house.png"
 import closetPNG from "./images/hanger.png"
 import calendarPNG from "./images/calendar.png"
-
+import settingsPNG from "./images/settings.png"
+import useWindowDimensions from './dimensions.js';
+import Login from "./Login"
+import {useState} from "react";
 
 function App() {
   // const app = express();
@@ -20,29 +24,41 @@ function App() {
   // app.use( express.static( "public" ) );
   // var path = require('path');
   // app.use(express.static(path.resolve('./public')));
-  // useWindowDimensions()
+  // const { height, width } = useWindowDimensions();
+  const height = 70;
+  const width = 70;
+  const [user, setUser] = useState(null);
   return (
+    <div>
+    {<div>
+      <Login setUser={setUser}></Login>
+    </div>}
+    {user && 
     <div>
       <div>
         <HashRouter>
-          <Navbar bg="light" fixed="bottom">
-            <Container>
-              {/* <Navbar.Brand href="#">(home)</Navbar.Brand> */}
+          <Navbar  fixed="bottom" height='40' >
+            <Container fluid>
+              {/* <Navbar.Brand href="#"></Navbar.Brand> */}
               <Nav className="me-auto">
-                <Nav.Link href="#"> <img
-      src={require(homePNG)}
+              <Nav.Link href="#/camera"><img
+      src={cameraPNG}
+      className='img-fluid shadow-4' height={height} width={width}
+      alt='not working'/></Nav.Link>
+      <Nav.Link href="#/closet"><img
+      src={closetPNG}
+      className='img-fluid shadow-4' height={height} width={width}
+      alt='not working'/></Nav.Link>
+                <Nav.Link href="#/home"> <img
+      src={homePNG}
       className='img-fluid shadow-4' height={height} width={width}
       alt='not working'/></Nav.Link>
                 <Nav.Link href="#/calendar"><img
-      src={require(calendarPNG)}
+      src={calendarPNG}
       className='img-fluid shadow-4' height={height} width={width}
       alt='not working'/></Nav.Link>
-                <Nav.Link href="#/closet"><img
-      src={require(closetPNG)}
-      className='img-fluid shadow-4' height={height} width={width}
-      alt='not working'/></Nav.Link>
-                <Nav.Link href="#/camera"><img
-      src={require(cameraPNG)}
+                <Nav.Link href="#/settings"><img
+      src={settingsPNG}
       className='img-fluid shadow-4' height={height} width={width}
       alt='not working'/></Nav.Link>
               </Nav>
@@ -54,10 +70,12 @@ function App() {
             <Route exact path="/closet" element={<Closet />} />
             <Route exact path="/camera" element={<Camera />} />
             <Route exact path="/home" element={<Home />} />
+            <Route exact path="/settings" element={<Settings />} />
             <Route exact path="*" element={<Home />} />
           </Routes>
         </HashRouter>
       </div>
+    </div>}
     </div>
   );
 }
