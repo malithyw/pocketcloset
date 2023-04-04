@@ -9,6 +9,7 @@ import Closet from "./pages/Closet";
 import Calendar from "./pages/Calendar";
 import Camera from "./pages/Camera";
 import Settings from "./pages/Settings";
+import PictureTags from "./pages/PictureTags";
 import cameraPNG from "./images/camera.png"
 import homePNG from "./images/house.png"
 import closetPNG from "./images/hanger.png"
@@ -72,6 +73,7 @@ function App() {
             <Route exact path="/home" element={<Home />} />
             <Route exact path="/settings" element={<Settings />} />
             <Route exact path="*" element={<Home />} />
+            <Route exact path="/camera/tags" element={<PictureTags/>}/>
           </Routes>
         </HashRouter>
       </div>

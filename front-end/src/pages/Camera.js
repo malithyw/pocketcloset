@@ -1,13 +1,12 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Camera.css';
+import CameraComponent from '../components/CameraComponent';
 
-const Camera = () =>  {
+const Camera = () => {
     console.log("camera")
     return (
-        <div>
-            <p>camera page!</p>
-        </div>
+            <CameraComponent />
     );
 }
 
