@@ -37,7 +37,7 @@ function App() {
     <div>
       <div>
         <HashRouter>
-          <Navbar  fixed="bottom" height='40' >
+          <Navbar fixed="bottom" height='40' style={{ backgroundColor: 'gray' }}>
             <Container fluid>
               {/* <Navbar.Brand href="#"></Navbar.Brand> */}
               <Nav className="me-auto">

@@ -1,7 +1,7 @@
 .screen {
-  justify-content: center;
   height: 1000px;
   background-image: url("./icons/background.png") ;
+  max-width: 350px;
 }
 
 .top-row {
@@ -142,5 +142,9 @@ input::placeholder {
   height: 54%;
   background-color: white;
   padding-top: 50px;
+  z-index: 999;
 }
 
+.add-button {
+  color: #D77A97 !important;
+}
