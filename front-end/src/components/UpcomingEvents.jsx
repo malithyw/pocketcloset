@@ -115,119 +115,154 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
   };
 
   return (
-    <Box sx={{ width: 1, maxWidth: 360, bgColor: "background.paper" }}>
+    <Box
+      sx={{
+        width: 1,
+        maxWidth: 360,
+        bgColor: "background.paper",
+        paddingTop: "20px",
+      }}
+    >
       <Stack
         direction="column"
         spacing={1}
         sx={{ justifyContent: "center", alignItems: "center" }}
       >
-        <List sx={{ width: "90%" }}>
-          {Array.from(eventMap.keys()).map((key, idx) => {
-            let value = eventMap.get(key);
-            return (
-              <ListItem
-                divider
-                key={idx}
-                secondaryAction={
-                  <Stack direction="row-reverse" spacing={0.2}>
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => setDeleteKey(key)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                    <IconButton
-                      edge="end"
-                      aria-label="edit"
-                      onClick={() => {
-                        setUpdateKey(key);
-                        setEventTitle(value.title);
-                        setEventDate(value.date);
-                        setEventIsAllDay(value.isAllDay);
-                        setEventStartTime(value.startTime);
-                      }}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton
-                      edge="end"
-                      aria-label="outfit"
-                      onClick={routeChange}
-                    >
-                      <CheckroomIcon />
-                    </IconButton>
-                    <Dialog open={updateKey !== -1} onClose={handleClose}>
-                      <DialogTitle>Update Event</DialogTitle>
-                      <DialogContent>
-                        <DialogContentText>
-                          Update your event by simply editing the fields you
-                          wish to change.
-                        </DialogContentText>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <Stack direction="column" spacing={1}>
-                            <TextField
-                              autoFocus
-                              margin="dense"
-                              id="event-name"
-                              label="Event Title"
-                              type="text"
-                              defaultValue={eventTitle}
-                              fullWidth
-                              onChange={(e) =>
-                                setEventTitle(e.target.value.trim())
-                              }
-                              variant="standard"
-                            />
-                            <DatePicker
-                              disablePast
-                              label="Date"
-                              onChange={(e) => {
-                                setEventDate(e.format("YYYY-MM-DD"));
-                              }}
-                              defaultValue={dayjs(eventDate)}
-                            />
-                            <FormControlLabel
-                              control={
-                                <Checkbox defaultChecked={eventIsAllDay} />
-                              }
-                              label="All Day Event"
-                              onChange={toggleAllDay}
-                            />
-                            <TimePicker
-                              disabled={eventIsAllDay}
-                              label="Start Time"
-                              defaultValue={updateTime}
-                              onChange={(e) => {
-                                setEventStartTime(e.format("hh:mm a"));
-                              }}
-                            />
-                          </Stack>
-                        </LocalizationProvider>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleUpdateThenClose}>
-                          Update Event
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
-                  </Stack>
+        <Typography variant="h5" component="div">
+          Upcoming Events
+        </Typography>
+        {eventMap.size === 0 && (
+          <Stack sx={{ justifyContent: "center", alignItems: "center" }}>
+            <Typography variant="body1">
+              You have no events coming up.
+            </Typography>
+            <Typography
+              variant="body2"
+              component="div"
+              sx={{ textAlign: "center", paddingTop: "30px" }}
+            >
+              Add a new event by clicking the ADD EVENT button above!
+            </Typography>
+          </Stack>
+        )}
+        {eventMap.size !== 0 && (
+          <List
+            sx={{ width: "90%", maxHeight: 180, overflow: "auto", padding: 0 }}
+          >
+            {[...eventMap.entries()]
+              .sort(function (x, y) {
+                return dayjs(x[1].date).diff(dayjs(y[1].date), "day");
+              })
+              .map((entry, idx) => {
+                let value = entry[1];
+                if (dayjs(value.date).diff(dayjs(), "day") < 0) {
+                  return <></>;
                 }
-              >
-                <ListItemText
-                  primary={
-                    <React.Fragment>
-                      <Typography variant="h6">{value.title}</Typography>
-                      <Typography variant="body2">{value.date}</Typography>
-                    </React.Fragment>
-                  }
-                  secondary={timeDisplayHandler(value)}
-                />
-              </ListItem>
-            );
-          })}
-        </List>
+                return (
+                  <ListItem
+                    divider
+                    key={idx}
+                    secondaryAction={
+                      <Stack direction="row-reverse" spacing={0.2}>
+                        <IconButton
+                          edge="end"
+                          aria-label="delete"
+                          onClick={() => setDeleteKey(entry[0])}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                        <IconButton
+                          edge="end"
+                          aria-label="edit"
+                          onClick={() => {
+                            setUpdateKey(entry[0]);
+                            setEventTitle(value.title);
+                            setEventDate(value.date);
+                            setEventIsAllDay(value.isAllDay);
+                            setEventStartTime(value.startTime);
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          edge="end"
+                          aria-label="outfit"
+                          onClick={routeChange}
+                        >
+                          <CheckroomIcon />
+                        </IconButton>
+                        <Dialog open={updateKey !== -1} onClose={handleClose}>
+                          <DialogTitle>Update Event</DialogTitle>
+                          <DialogContent>
+                            <DialogContentText>
+                              Update your event by simply editing the fields you
+                              wish to change.
+                            </DialogContentText>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                              <Stack direction="column" spacing={1}>
+                                <TextField
+                                  autoFocus
+                                  margin="dense"
+                                  id="event-name"
+                                  label="Event Title"
+                                  type="text"
+                                  defaultValue={eventTitle}
+                                  fullWidth
+                                  onChange={(e) =>
+                                    setEventTitle(e.target.value.trim())
+                                  }
+                                  variant="standard"
+                                />
+                                <DatePicker
+                                  disablePast
+                                  label="Date"
+                                  onChange={(e) => {
+                                    setEventDate(e.format("YYYY-MM-DD"));
+                                  }}
+                                  defaultValue={dayjs(eventDate)}
+                                />
+                                <FormControlLabel
+                                  control={
+                                    <Checkbox defaultChecked={eventIsAllDay} />
+                                  }
+                                  label="All Day Event"
+                                  onChange={toggleAllDay}
+                                />
+                                <TimePicker
+                                  disabled={eventIsAllDay}
+                                  label="Start Time"
+                                  defaultValue={updateTime}
+                                  onChange={(e) => {
+                                    setEventStartTime(e.format("hh:mm a"));
+                                  }}
+                                />
+                              </Stack>
+                            </LocalizationProvider>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose}>Cancel</Button>
+                            <Button onClick={handleUpdateThenClose}>
+                              Update Event
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+                      </Stack>
+                    }
+                  >
+                    <ListItemText
+                      primary={
+                        <React.Fragment>
+                          <Typography variant="h6">{value.title}</Typography>
+                          <Typography variant="body2">{value.date}</Typography>
+                        </React.Fragment>
+                      }
+                      secondary={timeDisplayHandler(value)}
+                    />
+                  </ListItem>
+                );
+              })}
+          </List>
+        )}
       </Stack>
     </Box>
   );

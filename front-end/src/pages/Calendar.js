@@ -5,10 +5,12 @@ import NewEventDialog from "../components/NewEventFormComponent";
 import UpcomingEvents from "../components/UpcomingEvents";
 // import { EVENTS } from "../Login";
 
-const Calendar = ({aboveEvents, setAboveEvents}) => {
+const Calendar = ({ aboveEvents, setAboveEvents }) => {
   let [currentDate, setCurrentDate] = React.useState("");
   let [events, setEvents] = React.useState(aboveEvents);
-  console.log(aboveEvents)
+  console.log(aboveEvents);
+  console.log(currentDate);
+
   return (
     <Stack
       direction="column"
@@ -16,8 +18,16 @@ const Calendar = ({aboveEvents, setAboveEvents}) => {
       sx={{ alignItems: "center", justifyContent: "center" }}
     >
       <CalendarComponent setCurrentDay={setCurrentDate} events={events} />
-      <NewEventDialog events={events} eventsModifier={setEvents} setAboveEvents={setAboveEvents}/>
-      <UpcomingEvents eventMap={events} eventMapModifier={setEvents} setAboveEvents={setAboveEvents} />
+      <NewEventDialog
+        events={events}
+        eventsModifier={setEvents}
+        setAboveEvents={setAboveEvents}
+      />
+      <UpcomingEvents
+        eventMap={events}
+        eventMapModifier={setEvents}
+        setAboveEvents={setAboveEvents}
+      />
     </Stack>
   );
 };

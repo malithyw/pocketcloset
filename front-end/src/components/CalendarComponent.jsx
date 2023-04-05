@@ -129,7 +129,7 @@ const CalendarComponent = ({ events, setCurrentDay }) => {
           },
         }}
         onChange={(date) => {
-          setCurrentDay(date);
+          setCurrentDay(`${date.year()}-${date.month()}-${date.day()}`);
           setSelectedDate(date);
         }}
       />
