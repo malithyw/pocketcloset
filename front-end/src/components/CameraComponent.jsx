@@ -11,6 +11,8 @@ const CameraComponent = (props) => {
         props.sendDataToCamera([picture, true]);
     }
 
+    //if comes back from tags, deletes image do we want a reset?
+
     function takePhoto(image) {
         setPicture(image);
         if (picture != "") {

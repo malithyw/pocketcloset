@@ -14,10 +14,34 @@ const Camera = (props) => {
     const width = 70;
     const [picture, setPicture] = React.useState("");
     const [contin, setContin] = React.useState(false);
+    const [tags, setTags] = React.useState([]);
+    const [newTag, setNewTag] = React.useState("");
 
     const handleCameraComponentImage = (data) => {
         setPicture(data[0]);
         setContin(data[1]);
+    }
+
+    function goBack() {
+        setContin(false);
+    }
+
+    function addTag() {
+        //also check for duplicate tags
+        if (newTag !== "") {
+            let allTags = tags;
+            allTags.push(newTag);
+            setTags(allTags);
+            setNewTag("");
+            let input = document.getElementById("tagInput");
+            input.value = "";
+        }
+    }
+
+    function updateInput(event) {
+        if (event.target.id === "tagInput") {
+            setNewTag(event.target.value);
+        }
     }
 
     return (
@@ -25,13 +49,19 @@ const Camera = (props) => {
             <p>Add to Your Virtual Closet</p>
             {contin ?
                 <div>
-                    <p>Add Tags for this Piece</p>
+                    <button onClick={goBack}>{"<"}</button>
                     <img src={picture} />
+                    <p>Add Tags for this Piece</p>
+                    <input id="tagInput" onChange={updateInput} />
+                    <button onClick={addTag}>Add</button>
+                    {tags.map(tag => <li>{tag}</li>)}
+                    {/* //create tag objects later that have x for deletion */}
+                    <button>Save</button>
+                    {/* //needs to go to closet to view piece? or go back to camera--needs to check if any tags were created*/}
                 </div>
-
                 :
                 <div>
-                    <CameraComponent sendDataToCamera={handleCameraComponentImage}/>
+                    <CameraComponent sendDataToCamera={handleCameraComponentImage} />
                     <Navbar fixed="bottom" height='40' >
                         <Container fluid>
                             {/* <Navbar.Brand href="#"></Navbar.Brand> */}
