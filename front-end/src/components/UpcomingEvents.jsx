@@ -25,6 +25,10 @@ import {
 } from "@mui/x-date-pickers";
 
 import dayjs from "dayjs";
+import { useState, useEffect } from "react";
+import { db, auth } from '../Login';
+import { ref, push, onValue, remove } from "firebase/database";
+import deleteicon from '../pages/icons/delete-02.png';
 
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
@@ -41,10 +45,15 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
   const [eventDate, setEventDate] = React.useState("");
   const [eventIsAllDay, setEventIsAllDay] = React.useState(false);
   const [eventStartTime, setEventStartTime] = React.useState("");
+  const [savedOutfits, setSavedOutfits] = useState([]);
+  const user = auth.currentUser.uid;
+  const [showSavedOutfits, setShowSavedOutfits] = useState(false);
 
   const timeDisplayHandler = (event) => {
     return event.isAllDay ? "All-Day Event" : `Starts at ${event.startTime}`;
   };
+
+
 
   const navigate = useNavigate();
 
@@ -53,7 +62,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
     navigate(path);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const deleteWithKey = () => {
       let newMap = new Map(eventMap);
       deleteEvent(deleteKey, newMap);
@@ -63,6 +72,18 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
     if (deleteKey !== -1) {
       deleteWithKey();
     }
+
+    const outfitsRef = ref(db, `users/${user}/closet/outfits`);
+    onValue(outfitsRef, (snap) => {
+        const outfitsArray = [];
+        const keys = [];
+        snap.forEach((childSnap) => {
+            const childData = childSnap.val();
+            outfitsArray.push(childData); 
+            keys.push(childSnap.key);
+        });
+        setSavedOutfits(outfitsArray);
+    });
   }, [deleteKey]);
 
   const closeReset = () => {
@@ -146,6 +167,20 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
     eventMapModifier(newMap);
     setOutfitKey(-1);
   };
+
+  const buttonClick = (button) => {
+    switch(button) {
+        case "saved-outfits":
+            setShowSavedOutfits(true);
+            console.log("saved outfits buttons clicked");
+            break;
+        case "close-saved-outfits":
+            setShowSavedOutfits(false);
+            break;
+        default:
+            break;
+    }
+  }
 
   return (
     <Box
@@ -244,7 +279,24 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
                                   " event by clicking on the corresponding tile"}
                             </DialogContentText>
                             {/* Your Saved Outfit */}
-                            <Stack>{/* Stuff about the outfit tiles */}</Stack>
+                            <Stack>{/* Stuff about the outfit tiles */}
+                            <div>
+                                <Button onClick={() => buttonClick("saved-outfits")}>Outfits</Button>
+                                    {showSavedOutfits && 
+                                    <div className="saved-outfits-b box">
+                                            {savedOutfits.map((outfit, index) => (
+                                                <div key={index} className="outfit">
+                                                    {outfit.map((item, index) => (
+                                                        <img key={index} className="outfit-item" src={item.image} alt={item.name} />
+                                                    ))}
+                                                </div>
+                                            ))}
+                                        <Button onClick={() => buttonClick("close-saved-outfits")}>
+                                            close
+                                        </Button>
+                                    </div>}
+                            </div>
+                            </Stack>
                             <DialogContentText>
                               Didn't like any of your saved outfits, click on
                               the button below to make a new one!

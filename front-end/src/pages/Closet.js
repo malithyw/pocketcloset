@@ -59,16 +59,16 @@ const Closet = () =>  {
 
     const buttonClick = (button) => {
         switch(button) {
-            case "help":
-                setShowHelpDoc(true);
-                console.log("help button clicked");
-                break;
             case "saved-outfits":
                 setShowSavedOutfits(true);
                 console.log("saved outfits buttons clicked");
                 break;
             case "close-saved-outfits":
                 setShowSavedOutfits(false);
+                break;
+            case "help":
+                setShowHelpDoc(true);
+                console.log("help button clicked");
                 break;
             case "common-items":
                 setShowCommonItems(true);
