@@ -36,6 +36,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
   const [updateKey, setUpdateKey] = React.useState(-1);
   const [deleteKey, setDeleteKey] = React.useState(-1);
+  const [outfitKey, setOutfitKey] = React.useState(-1);
   const [eventTitle, setEventTitle] = React.useState("");
   const [eventDate, setEventDate] = React.useState("");
   const [eventIsAllDay, setEventIsAllDay] = React.useState(false);
@@ -114,6 +115,38 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
     setUpdateKey(-1);
   };
 
+  const handleRemoveThenClose = () => {
+    let eventData = {
+      title: eventMap.get(outfitKey).title,
+      date: eventMap.get(outfitKey).date,
+      isAllDay: eventMap.get(outfitKey).isAllDay,
+      startTime: eventMap.get(outfitKey).startTime,
+      hasOutfit: false,
+    };
+
+    let newMap = new Map(eventMap);
+
+    updateEvent(eventData, outfitKey, newMap);
+    eventMapModifier(newMap);
+    setOutfitKey(-1);
+  };
+
+  const handleSaveThenClose = () => {
+    let eventData = {
+      title: eventMap.get(outfitKey).title,
+      date: eventMap.get(outfitKey).date,
+      isAllDay: eventMap.get(outfitKey).isAllDay,
+      startTime: eventMap.get(outfitKey).startTime,
+      hasOutfit: true,
+    };
+
+    let newMap = new Map(eventMap);
+
+    updateEvent(eventData, outfitKey, newMap);
+    eventMapModifier(newMap);
+    setOutfitKey(-1);
+  };
+
   return (
     <Box
       sx={{
@@ -187,10 +220,47 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
                         <IconButton
                           edge="end"
                           aria-label="outfit"
-                          onClick={routeChange}
+                          onClick={() => setOutfitKey(entry[0])}
                         >
                           <CheckroomIcon />
                         </IconButton>
+                        <Dialog
+                          open={outfitKey !== -1}
+                          onClose={() => {
+                            setOutfitKey(-1);
+                          }}
+                        >
+                          <DialogTitle>
+                            {entry[0].hasOutfit
+                              ? "Update Outfit"
+                              : "Pick an Outfit"}
+                          </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText>
+                              {entry[0].hasOutfit
+                                ? "Update your outfit by simply selecting" +
+                                  " a new tile from the following saved outfit choices"
+                                : "Pick the outfit of your choice for this" +
+                                  " event by clicking on the corresponding tile"}
+                            </DialogContentText>
+                            {/* Your Saved Outfit */}
+                            <Stack>{/* Stuff about the outfit tiles */}</Stack>
+                            <DialogContentText>
+                              Didn't like any of your saved outfits, click on
+                              the button below to make a new one!
+                            </DialogContentText>
+                            <Button onClick={routeChange}>Create Outfit</Button>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={() => setOutfitKey(-1)}>
+                              Cancel
+                            </Button>
+                            <Button onClick={handleRemoveThenClose}>
+                              Remove Outfit
+                            </Button>
+                            <Button onClick={() => {}}>Save</Button>
+                          </DialogActions>
+                        </Dialog>
                         <Dialog open={updateKey !== -1} onClose={handleClose}>
                           <DialogTitle>Update Event</DialogTitle>
                           <DialogContent>
