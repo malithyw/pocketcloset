@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import Calendar from "./pages/Calendar";
+import { getDatabase } from "firebase/database";
 
 // const EVENTS;
 const databaseURL = "https://pocketcloset-542e3-default-rtdb.firebaseio.com/";
@@ -28,7 +29,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth(app);
+export const auth = getAuth(app);
+export const db = getDatabase(app);
 
 function Login({ events, setUser, setEvents }) {
   const [internalUser, setInternalUser] = useState(null);
