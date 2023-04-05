@@ -20,7 +20,7 @@ const firebaseConfig = {
     messagingSenderId: "730839004045",
     appId: "1:730839004045:web:0d1b296e019d2660b7c3c4",
     measurementId: "G-N05QV7RL04"
-  };
+};
 
 const app = initializeApp(firebaseConfig);
 
@@ -43,6 +43,11 @@ const Camera = (props) => {
         setContin(false);
     }
 
+    function deleteTag(event) {
+        let newTags = tags.filter(tag => tag !== event.target.id);
+        setTags(newTags);
+    }
+
     function addTag() {
         //also check for duplicate tags
         if (newTag !== "") {
@@ -58,84 +63,68 @@ const Camera = (props) => {
     function updateInput(event) {
         if (event.target.id === "tagInput") {
             setNewTag(event.target.value);
-        } else if (event.target.id === "nameInput") { 
+        } else if (event.target.id === "nameInput") {
             setName(event.target.value);
         }
     }
 
-    function save() { 
+    function save() {
         let piece = {
-                "image": picture,
-                "name": name,
-                "tags": tags
+            "image": picture,
+            "name": name,
+            "tags": tags
         };
-        //add to closet, get user ID and add info below
         fetch(`${firebaseConfig.databaseURL + "/users/" + user.uid}/closet/clothes/.json`, { method: 'POST', body: JSON.stringify(piece) })
-                .then((res) => {
-                    if (res.status !== 200) {
-                        console.log("piece not stored");
-                    } else {
-                        console.log("piece stored");
-                        alert("Piece has been added to closet");
-                    }
-                }).catch(error => alert(error))
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log("piece not stored");
+                } else {
+                    console.log("piece stored");
+                    alert("Piece has been added to closet");
+                }
+            }).catch(error => alert(error))
         setTags([]);
         setName("");
         setNewTag("");
         setPicture("");
-        goBack();//because it restarts camera
+        goBack();
     }
 
     return (
-        <div>
-            <a>Add to Your Virtual Closet</a>
+        <body className="screen">
+            <div className="row">
+                <a>Add to Your Virtual Closet</a>
+            </div>
             {contin ?
                 <div>
                     <button onClick={goBack}>{"<"}</button>
                     <img src={picture} />
-                    <p>Name the Piece</p>
-                    <input id="nameInput" onChange={updateInput} />
-                    <p>Add Tags for this Piece</p>
-                    <input id="tagInput" onChange={updateInput} />
-                    <button onClick={addTag}>Add</button>
-                    {tags.map(tag => <li>{tag}</li>)}
+                    <div className="row">
+                        <p className="col-4">Name</p>
+                        <input className="col-4" id="nameInput" onChange={updateInput} />
+                    </div>
+                    <div className="row">
+                        <p className="col-4">Tags</p>
+                        <input className="col-4" id="tagInput" onChange={updateInput} />
+                        <button className="col-1" onClick={addTag}>Add</button>
+                    </div>
+                    <div className="row">
+                        {tags.map(tag => <ui className="col-4">
+                            <p style={{ color: "white", height: "35px", width: "100px", background: "pink", borderRadius: "15px", textAlign: "left", marginLeft: "5px", paddingTop: "4px", paddingLeft: "10px" }}>{tag}
+                                <button style={{ textAlign: "right", marginTop: "-7px", marginLeft: "10px" }} id={tag} onClick={deleteTag}>x</button></p>
+                        </ui>)}
+                    </div>
                     {/* //create tag objects later that have x for deletion */}
-                    <button onClick={save}>Save</button>
-                    {/* //needs to go to closet to view piece? or go back to camera--needs to check if any tags were created*/}
+                    <div className="otherButtons">
+                        <button onClick={save}>Save Piece</button>
+                    </div>
                 </div>
                 :
                 <div>
                     <CameraComponent sendDataToCamera={handleCameraComponentImage} />
-                    <Navbar fixed="bottom" height='40' >
-                        <Container fluid>
-                            {/* <Navbar.Brand href="#"></Navbar.Brand> */}
-                            <Nav className="me-auto">
-                                <Nav.Link href="#/camera"><img
-                                    src={cameraPNG}
-                                    className='img-fluid shadow-4' height={height} width={width}
-                                    alt='not working' /></Nav.Link>
-                                <Nav.Link href="#/closet"><img
-                                    src={closetPNG}
-                                    className='img-fluid shadow-4' height={height} width={width}
-                                    alt='not working' /></Nav.Link>
-                                <Nav.Link href="#/home"> <img
-                                    src={homePNG}
-                                    className='img-fluid shadow-4' height={height} width={width}
-                                    alt='not working' /></Nav.Link>
-                                <Nav.Link href="#/calendar"><img
-                                    src={calendarPNG}
-                                    className='img-fluid shadow-4' height={height} width={width}
-                                    alt='not working' /></Nav.Link>
-                                <Nav.Link href="#/settings"><img
-                                    src={settingsPNG}
-                                    className='img-fluid shadow-4' height={height} width={width}
-                                    alt='not working' /></Nav.Link>
-                            </Nav>
-                        </Container>
-                    </Navbar>
                 </div>
             }
-        </div>
+        </body>
     );
 }
 

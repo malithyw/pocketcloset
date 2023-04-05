@@ -1,7 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Webcam from "react-webcam";
-import { Nav } from "react-bootstrap";
+import '../pages/Camera.css';
+import screenshotButton from '../pages/icons/screenshotButton.webp';
 
 const CameraComponent = (props) => {
     const [ifPicture, setIfPicture] = React.useState(false);
@@ -29,21 +30,30 @@ const CameraComponent = (props) => {
         <div>
             {
                 ifPicture ? <div>
-                    <button onClick={deletePhoto}>x</button>
+                    <button onClick={deletePhoto}>X</button>
                     <img src={picture} />
-                    <button onClick={sendDataToCamera}>Continue</button>
+                    <div className="otherButtons" >
+                        <button onClick={sendDataToCamera}>Continue</button>
+                    </div>
                 </div> :
                     <div>
-                        <p>If you can, place a white background behind the clothes.</p>
-                        <Webcam>
-                            {({ getScreenshot }) => (
-                                <button onClick={() => {
-                                    //source code: https://www.npmjs.com/package/react-webcam
-                                    const image = getScreenshot();
-                                    takePhoto(image);
-                                }}>Take picture here</button>
-                            )}
-                        </Webcam>
+                        <p>Better Photos With:</p>
+                        <li>Good Lighting</li>
+                        <li>White Background</li>
+                        <li>Clothing Item Centered</li>
+                        <div className="row">
+                            <Webcam>
+                                {({ getScreenshot }) => (
+                                    <div className="otherButtons">
+                                        <button onClick={() => {
+                                            //source code: https://www.npmjs.com/package/react-webcam
+                                            const image = getScreenshot();
+                                            takePhoto(image);
+                                        }}><img className="screenshot" src={screenshotButton} /></button>
+                                    </div>
+                                )}
+                            </Webcam>
+                        </div>
                     </div>}
         </div>
     );
