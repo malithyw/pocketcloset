@@ -109,7 +109,7 @@ function App() {
                   }
                 />
                 <Route exact path="/closet" element={<Closet />} />
-                <Route exact path="/camera" element={<Camera />} />
+                <Route exact path="/camera" element={<Camera user={user} />} />
                 <Route exact path="/home" element={<Home />} />
                 <Route exact path="/settings" element={<Settings />} />
                 <Route exact path="*" element={<Home />} />
