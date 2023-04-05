@@ -110,7 +110,7 @@ const Camera = (props) => {
                     </div>
                     <div className="row">
                     {tags.map(tag => <ui className="col-4">
-                        <p style={{ color: "white", height: "35px", width:"120px", background: "pink", borderRadius: "15px", textAlign: "left", marginLeft: "15px", paddingTop: "4px", paddingLeft:"10px" }}>{tag}
+                        <p style={{ color: "white", height: "35px", width:"100px", background: "pink", borderRadius: "15px", textAlign: "left", marginLeft: "5px", paddingTop: "4px", paddingLeft:"10px" }}>{tag}
                         <button style={{textAlign:"right", marginTop:"-7px", marginLeft: "10px"}} id={tag} onClick={deleteTag}>x</button></p>
                     </ui>)}
                     </div>
