@@ -17,6 +17,7 @@ import settingsPNG from "./images/settings.png"
 import useWindowDimensions from './dimensions.js';
 import Login from "./Login"
 import {useState} from "react";
+import {events, setEvents} from "./Login"
 
 function App() {
   // const app = express();
@@ -28,10 +29,12 @@ function App() {
   const height = 70;
   const width = 70;
   const [user, setUser] = useState(null);
+  const [events, setEvents] = useState(null)
+  
   return (
     <div>
     {<div>
-      <Login setUser={setUser}></Login>
+      <Login events={events} setUser={setUser} setEvents={setEvents}></Login>
     </div>}
     {user && 
     <div>
@@ -66,7 +69,7 @@ function App() {
           </Navbar>
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route exact path="/calendar" element={<Calendar />} />
+            <Route exact path="/calendar" element={<Calendar aboveEvents={events} setAboveEvents={setEvents}/>} />
             <Route exact path="/closet" element={<Closet />} />
             <Route exact path="/camera" element={<Camera />} />
             <Route exact path="/home" element={<Home />} />

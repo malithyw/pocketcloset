@@ -3,12 +3,12 @@ import Stack from "@mui/material/Stack";
 import CalendarComponent from "../components/CalendarComponent";
 import NewEventDialog from "../components/NewEventFormComponent";
 import UpcomingEvents from "../components/UpcomingEvents";
-import { EVENTS } from "../components/staticEvents";
+// import { EVENTS } from "../Login";
 
-const Calendar = () => {
+const Calendar = ({aboveEvents, setAboveEvents}) => {
   let [currentDate, setCurrentDate] = React.useState("");
-  let [events, setEvents] = React.useState(EVENTS);
-
+  let [events, setEvents] = React.useState(aboveEvents);
+  console.log(aboveEvents)
   return (
     <Stack
       direction="column"
@@ -16,8 +16,8 @@ const Calendar = () => {
       sx={{ alignItems: "center", justifyContent: "center" }}
     >
       <CalendarComponent setCurrentDay={setCurrentDate} events={events} />
-      <NewEventDialog events={events} eventsModifier={setEvents} />
-      <UpcomingEvents eventMap={events} eventMapModifier={setEvents} />
+      <NewEventDialog events={events} eventsModifier={setEvents} setAboveEvents={setAboveEvents}/>
+      <UpcomingEvents eventMap={events} eventMapModifier={setEvents} setAboveEvents={setAboveEvents} />
     </Stack>
   );
 };

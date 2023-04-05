@@ -23,7 +23,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import { addEvent } from "./staticEvents";
 
-const NewEventDialog = ({ events, eventsModifier }) => {
+const NewEventDialog = ({ events, eventsModifier, setAboveEvents }) => {
   const [open, setOpen] = React.useState(false);
   const [eventTitle, setEventTitle] = React.useState("");
   const [eventDate, setEventDate] = React.useState("");
@@ -58,7 +58,7 @@ const NewEventDialog = ({ events, eventsModifier }) => {
     let newMap = new Map(events);
     addEvent(eventData, newMap);
     eventsModifier(newMap);
-
+    setAboveEvents(newMap);
     closeReset();
     setOpen(false);
   };
