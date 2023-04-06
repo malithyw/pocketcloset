@@ -45,24 +45,35 @@ const Settings = (props) => {
             setName(event.target.value);
         } else if (event.target.id === "passwordChange") {
             setPassword(event.target.value);
-        } else if (event.target.id === "newPassword") { 
+        } else if (event.target.id === "newPassword") {
             setNewPassword(event.target.value);
         }
     }
 
-    const changeName = () => { 
-        
+    const changeName = () => {
+        if (confirm("Are you sure that you want to change your name?")) {
+            fetch(`${databaseURL + "users/" + props.internalUser.uid}/name.json`, {
+                method: "PUT", body: JSON.stringify({ name }),
+            }).then(() => {
+                let input = document.getElementById("nameChange");
+                input.value = "";
+                alert("Your name has been changed.");
+
+            });
+        }
     }
 
-    const changePassword = () => { 
-        if (confirm("Are you sure you want to change your password?")) { 
+    const changePassword = () => {
+        if (confirm("Are you sure you want to change your password?")) {
             updatePassword(props.internalUser, newPassword).then(() => {
-                alert("password has successfully been changed")
-              }).catch((error) => {
-                  alert(error);
-              });
+                alert("password has successfully been changed");
+                let input = document.getElementById("newPassword");
+                input.value = "";
+            }).catch((error) => {
+                alert(error);
+            });
         }
-        }
+    }
 
     const { height, width } = useWindowDimensions();
 
@@ -73,14 +84,14 @@ const Settings = (props) => {
             </div>
             <p className="title">Change Name?</p>
             <div className="row">
-            <p className="col-4">Name:</p>
-                <input className="col-4" id="nameChange" onChange={handleChange}/>
+                <p className="col-4">Name:</p>
+                <input className="col-4" id="nameChange" onChange={handleChange} />
                 <button className="col-2" onClick={changeName}>Change</button>
             </div>
             <p className="title">Change Password?</p>
             <div className="row">
-            <p className="col-5">New Password:</p>
-                <input className="col-4" id="newPassword" label="New Password" onChange={handleChange}/>
+                <p className="col-5">New Password:</p>
+                <input className="col-4" id="newPassword" label="New Password" onChange={handleChange} />
                 <button className="col-2" onClick={changePassword}>Change</button>
             </div>
             <div className="row">

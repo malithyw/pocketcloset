@@ -34,7 +34,10 @@ const Camera = (props) => {
     }
 
     function goBack() {
-        setContin(false);
+        if (confirm("Going back will delete your image. Is this okay?")) { 
+            setPicture("");
+            setContin(false);
+        }
     }
 
     function deleteTag(event) {
@@ -81,7 +84,7 @@ const Camera = (props) => {
         setName("");
         setNewTag("");
         setPicture("");
-        goBack();
+        setContin(false);
     }
 
     return (
