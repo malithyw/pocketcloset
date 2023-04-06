@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { Button } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Settings.css';
 import useWindowDimensions from '../dimensions.js';
@@ -109,7 +109,7 @@ const Settings = (props) => {
                 <button className="col-2" onClick={changePassword}>Change</button>
             </div>
             <div className="row">
-                <button onClick={logOut}>Log Out</button>
+                <Nav.Link href="#/home" onClick={logOut}>Log Out</Nav.Link>
             </div>
         </body>
 
