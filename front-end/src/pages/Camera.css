@@ -34,7 +34,7 @@ img {
 }
 .screen{
     background-image: url("./icons/background.png");
-    height: 1000px;
+    height: 860px;
     max-width: 420px;
     margin-top: -10px;
 }
