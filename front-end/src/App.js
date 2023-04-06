@@ -15,9 +15,9 @@ import closetPNG from "./images/hanger.png";
 import calendarPNG from "./images/calendar.png";
 import settingsPNG from "./images/settings.png";
 import useWindowDimensions from "./dimensions.js";
-import Login from "./Login";
-import { useState } from "react";
 import { events, setEvents } from "./Login";
+import Login from "./Login"
+import { useState } from "react";
 
 function App() {
   // const app = express();
