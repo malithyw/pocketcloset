@@ -15,6 +15,17 @@ const Settings = (props) => {
     const [name, setName] = React.useState("");
     const [newPassword, setNewPassword] = React.useState("");
 
+    const getCurrName = () => { 
+        fetch(`${databaseURL + "users/" + props.internalUser.uid}/name.json`, {
+            method: "GET"}).then((res) => {
+            return res.json();
+        }).then(data => setChangedName(data.name)).catch((error) => { 
+            console.log(error);
+        });
+    }
+
+    const [changedName, setChangedName] = React.useState(getCurrName);
+
     const mapToObj = (m) => {
         return Array.from(m).reduce((obj, [key, value]) => {
             obj[key] = value;
@@ -55,9 +66,11 @@ const Settings = (props) => {
             fetch(`${databaseURL + "users/" + props.internalUser.uid}/name.json`, {
                 method: "PUT", body: JSON.stringify({ name }),
             }).then(() => {
+                setChangedName(name);
                 let input = document.getElementById("nameChange");
                 input.value = "";
                 alert("Your name has been changed.");
+                setName("");
 
             });
         }
@@ -80,7 +93,8 @@ const Settings = (props) => {
     return (
         <body className="background">
             <div>
-                <p className="a">Hey! {name}</p>
+                <p className="a">Settings</p>
+                <p className="a">Hello {changedName}</p>
             </div>
             <p className="title">Add/Change Name?</p>
             <div className="row">
