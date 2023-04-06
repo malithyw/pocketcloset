@@ -24,9 +24,9 @@ function App() {
   // app.use( express.static( "public" ) );
   // var path = require('path');
   // app.use(express.static(path.resolve('./public')));
-  // const { height, width } = useWindowDimensions();
-  const height = 70;
-  const width = 70;
+  const { height, width } = useWindowDimensions();
+  // const height = 70;
+  // const width = 70;
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState(new Map());
   const [internalUser, setInternalUser] = useState(null);

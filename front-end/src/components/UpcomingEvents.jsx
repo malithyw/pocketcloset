@@ -37,7 +37,7 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import { updateEvent, deleteEvent } from "./staticEvents";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
+const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
   const [updateKey, setUpdateKey] = React.useState(-1);
   const [deleteKey, setDeleteKey] = React.useState(-1);
   const [outfitKey, setOutfitKey] = React.useState(-1);
@@ -67,6 +67,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
       let newMap = new Map(eventMap);
       deleteEvent(deleteKey, newMap);
       eventMapModifier(newMap);
+      setAboveEvents(newMap);
     };
 
     if (deleteKey !== -1) {
@@ -133,6 +134,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
 
     updateEvent(eventData, updateKey, newMap);
     eventMapModifier(newMap);
+    setAboveEvents(newMap);
     closeReset();
     setUpdateKey(-1);
   };
@@ -151,6 +153,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
 
     updateEvent(eventData, outfitKey, newMap);
     eventMapModifier(newMap);
+    setAboveEvents(newMap);
     setEventOutfit([]);
     setOutfitKey(-1);
   };
@@ -170,6 +173,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
     updateEvent(eventData, outfitKey, newMap);
     setEventOutfit([]);
     eventMapModifier(newMap);
+    setAboveEvents(newMap);
     setOutfitKey(-1);
   };
 
