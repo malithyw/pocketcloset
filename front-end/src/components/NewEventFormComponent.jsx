@@ -53,6 +53,7 @@ const NewEventDialog = ({ events, eventsModifier, setAboveEvents }) => {
       isAllDay: isAllDay,
       startTime: eventTime,
       hasOutfit: false,
+      outfit: [],
     };
 
     let newMap = new Map(events);
