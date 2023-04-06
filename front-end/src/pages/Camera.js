@@ -2,12 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Camera.css';
 import CameraComponent from '../components/CameraComponent';
-import { Navbar, Nav, Container } from "react-bootstrap";
-import cameraPNG from "../images/camera.png"
-import homePNG from "../images/house.png"
-import closetPNG from "../images/hanger.png"
-import calendarPNG from "../images/calendar.png"
-import settingsPNG from "../images/settings.png"
 
 import { initializeApp } from "firebase/app";
 

@@ -15,7 +15,6 @@ import closetPNG from "./images/hanger.png";
 import calendarPNG from "./images/calendar.png";
 import settingsPNG from "./images/settings.png";
 import useWindowDimensions from "./dimensions.js";
-import { events, setEvents } from "./Login";
 import Login from "./Login"
 import { useState } from "react";
 
@@ -30,6 +29,9 @@ function App() {
   const width = 70;
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState(new Map());
+  const [internalUser, setInternalUser] = useState(null);
+  const [loaded, setLoaded] = useState(null);
+  const [email, setEmail] = useState(null);
 
   return (
     <div>
@@ -39,6 +41,12 @@ function App() {
             events={events}
             setUser={setUser}
             setEvents={setEvents}
+            setInternalUser={setInternalUser}
+            internalUser={internalUser}
+            loaded={loaded}
+            setLoaded={setLoaded}
+            email={email}
+            setEmail={setEmail}
           ></Login>
         </div>
       }
@@ -111,7 +119,7 @@ function App() {
                 <Route exact path="/closet" element={<Closet />} />
                 <Route exact path="/camera" element={<Camera user={user} />} />
                 <Route exact path="/home" element={<Home />} />
-                <Route exact path="/settings" element={<Settings />} />
+                <Route exact path="/settings" element={<Settings setUser={setUser} setEvents={setEvents} setEmail={setEmail} setInternalUser={setInternalUser} setLoaded={setLoaded} events={events} internalUser={internalUser} />} />
                 <Route exact path="*" element={<Home />} />
               </Routes>
             </HashRouter>

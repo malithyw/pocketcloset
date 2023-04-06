@@ -32,20 +32,16 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getDatabase(app);
 
-function Login({ events, setUser, setEvents }) {
-  const [internalUser, setInternalUser] = useState(null);
-  const [loaded, setLoaded] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [firstInputValue, setFirstInputValue] = useState(null);
+function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, internalUser, setLoaded, loaded }) {
   const [password, setPassword] = useState(null);
   const [alert, setAlert] = useState(null);
+  const [firstInputValue, setFirstInputValue] = useState(null);
 
   const user_field = (
     <TextField
       id="outlined-basic"
       label="Email"
       fullWidth
-      value={email}
       onChange={handleUserChange}
       variant="outlined"
     />
@@ -55,7 +51,6 @@ function Login({ events, setUser, setEvents }) {
       id="outlined-basic"
       label="Password"
       fullWidth
-      value={password}
       onChange={handlePassChange}
       variant="outlined"
     />
@@ -95,11 +90,12 @@ function Login({ events, setUser, setEvents }) {
       setInternalUser(null);
       setUser(null);
       setEmail(null);
-      setFirstInputValue(null);
       setLoaded(null);
       setEvents(new Map());
     });
   };
+
+
 
   const create = () => {
     setAlert(null);
@@ -114,6 +110,8 @@ function Login({ events, setUser, setEvents }) {
         setUser(userCredential.user);
         setInternalUser(userCredential.user);
         setLoaded(true);
+        setFirstInputValue(null);
+
       })
       .catch((error) => {
         console.log("failed");
@@ -155,7 +153,6 @@ function Login({ events, setUser, setEvents }) {
 
   const signIn = () => {
     setAlert(null);
-    setPassword(null);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser(userCredential.user);
