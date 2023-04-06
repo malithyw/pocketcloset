@@ -142,6 +142,17 @@ input::placeholder {
   z-index: 999;
 }
 
+.common-items-b {
+  color: #d77a97 !important;
+  position: fixed;
+  top: 10%;
+  left: 3%;
+  width: 88%;
+  height: 54%;
+  background-color: white;
+  z-index: 999;
+}
+
 .add-button {
   color: #d77a97 !important;
 }

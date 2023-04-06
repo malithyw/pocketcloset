@@ -31,21 +31,21 @@
     {
       "id": 0,
       "day": "Yesterday",
-      "date": "Mar 28",
+      "date": "Apr 5",
       "temperature": 70,
       "conditions": "cloudy"
     },
     {
       "id": 1,
       "day": "Today",
-      "date": "Mar 29",
+      "date": "Apr 6",
       "temperature": 67,
       "conditions": "sunny"
     },
     {
       "id": 2,
       "day": "Tomorrow",
-      "date": "Mar 30",
+      "date": "Apr 7",
       "temperature": 75,
       "conditions": "rainy"
     }
