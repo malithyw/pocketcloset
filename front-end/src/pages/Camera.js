@@ -111,7 +111,6 @@ const Camera = (props) => {
                                 <button style={{ textAlign: "right", marginTop: "-7px", marginLeft: "10px" }} id={tag} onClick={deleteTag}>x</button></p>
                         </ui>)}
                     </div>
-                    {/* //create tag objects later that have x for deletion */}
                     <div className="otherButtons">
                         <button onClick={save}>Save Piece</button>
                     </div>

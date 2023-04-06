@@ -80,9 +80,9 @@ const Settings = (props) => {
     return (
         <body className="background">
             <div>
-                <p className="a">Settings</p>
+                <p className="a">Hey! {name}</p>
             </div>
-            <p className="title">Change Name?</p>
+            <p className="title">Add/Change Name?</p>
             <div className="row">
                 <p className="col-4">Name:</p>
                 <input className="col-4" id="nameChange" onChange={handleChange} />

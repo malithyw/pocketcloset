@@ -45,11 +45,11 @@ const CameraComponent = (props) => {
                             <Webcam>
                                 {({ getScreenshot }) => (
                                     <div className="otherButtons">
-                                        <button onClick={() => {
+                                        <img className="screenshot" src={screenshotButton} onClick={() => {
                                             //source code: https://www.npmjs.com/package/react-webcam
                                             const image = getScreenshot();
                                             takePhoto(image);
-                                        }}><img className="screenshot" src={screenshotButton} /></button>
+                                        }}/>
                                     </div>
                                 )}
                             </Webcam>
