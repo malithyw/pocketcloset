@@ -66,25 +66,33 @@ const Camera = (props) => {
     }
 
     function save() {
+
+        const addNameToTags = tags;
+        addNameToTags.push(name);
+        setTags(addNameToTags);
         let piece = {
             "image": picture,
             "name": name,
             "tags": tags
         };
-        fetch(`${firebaseConfig.databaseURL + "/users/" + user.uid}/closet/clothes/.json`, { method: 'POST', body: JSON.stringify(piece) })
-            .then((res) => {
-                if (res.status !== 200) {
-                    console.log("piece not stored");
-                } else {
-                    console.log("piece stored");
-                    alert("Piece has been added to closet");
-                }
-            }).catch(error => alert(error))
-        setTags([]);
-        setName("");
-        setNewTag("");
-        setPicture("");
-        setContin(false);
+        if (tags.length != 0) {
+            fetch(`${firebaseConfig.databaseURL + "/users/" + user.uid}/closet/clothes/.json`, { method: 'POST', body: JSON.stringify(piece) })
+                .then((res) => {
+                    if (res.status !== 200) {
+                        console.log("piece not stored");
+                    } else {
+                        console.log("piece stored");
+                        alert("Piece has been added to closet");
+                    }
+                }).catch(error => alert(error))
+            setTags([]);
+            setName("");
+            setNewTag("");
+            setPicture("");
+            setContin(false);
+        } else { 
+            alert("Cannot add piece to closet without tags or name!");
+        }
     }
 
     return (

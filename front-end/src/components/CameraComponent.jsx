@@ -16,9 +16,7 @@ const CameraComponent = (props) => {
 
     function takePhoto(image) {
         setPicture(image);
-        if (picture != "") {
-            setIfPicture(true);
-        }
+        setIfPicture(true);
     }
 
     function deletePhoto() {
