@@ -18,12 +18,9 @@ const Settings = (props) => {
     };
 
     const logOut = () => {
-        console.log(props.internalUser)
-        console.log(props.events)
         const sampleDict = {
             events: JSON.stringify(mapToObj(props.events)),
         };
-        console.log(props.internalUser.uid);
         console.log(`${databaseURL + "users/" + props.internalUser.uid}.json`);
         return fetch(`${databaseURL + "users/" + props.internalUser.uid}.json`, {
             method: "PATCH",
@@ -39,15 +36,12 @@ const Settings = (props) => {
 
     const { height, width } = useWindowDimensions();
 
-    console.log("settings")
     return (
-        <div>
-            <Button variant="light" className="btn bg-transparent" onClick={logOut}>Log Out</Button>
-            <img
-                src={require('../images/rain.png')}
-                className='img-fluid shadow-4' width='auto'
-                alt='not working' />
-        </div>
+        <body className="background">
+            <div>
+                <Button variant="light" className="btn bg-transparent" onClick={logOut}>Log Out</Button>
+            </div>
+        </body>
 
 
     );

@@ -225,19 +225,6 @@ function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, i
           }
         </div>
       )}
-      {internalUser && loaded && (
-        <div>
-          {
-            <Button
-              variant="light"
-              className="btn bg-transparent"
-              onClick={() => logOut()}
-            >
-              Log Out
-            </Button>
-          }
-        </div>
-      )}
     </div>
   );
 }
