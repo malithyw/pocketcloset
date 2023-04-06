@@ -45,7 +45,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
   const [eventDate, setEventDate] = React.useState("");
   const [eventIsAllDay, setEventIsAllDay] = React.useState(false);
   const [eventStartTime, setEventStartTime] = React.useState("");
-  const [evevntOutfit, setEventOutfit] = React.useState([]);
+  const [eventOutfit, setEventOutfit] = React.useState([]);
   const [savedOutfits, setSavedOutfits] = useState([]);
   const user = auth.currentUser.uid;
   const [showSavedOutfits, setShowSavedOutfits] = useState(false);
@@ -162,7 +162,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
       isAllDay: eventMap.get(outfitKey).isAllDay,
       startTime: eventMap.get(outfitKey).startTime,
       hasOutfit: true,
-      outfit: evevntOutfit,
+      outfit: eventOutfit,
     };
 
     let newMap = new Map(eventMap);
@@ -279,7 +279,8 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
                               : "Pick an Outfit"}
                           </DialogTitle>
                           <DialogContent>
-                            {value.outfit.length !== 0 && (
+                            {(value.outfit.length !== 0 ||
+                              eventOutfit.length !== 0) && (
                               <Stack
                                 direction="column"
                                 alignItems="center"
@@ -297,6 +298,15 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
                                       alt={item.name}
                                     />
                                   ))}
+                                  {value.outfit.length === 0 &&
+                                    eventOutfit.map((item, idx) => (
+                                      <img
+                                        key={idx}
+                                        className="outfit-item"
+                                        src={item.image}
+                                        alt={item.name}
+                                      />
+                                    ))}
                                 </div>
                               </Stack>
                             )}
@@ -368,7 +378,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
                               onClick={handleSaveThenClose}
                               disabled={
                                 JSON.stringify(value.outfit) ===
-                                JSON.stringify(evevntOutfit)
+                                JSON.stringify(eventOutfit)
                               }
                             >
                               Save
