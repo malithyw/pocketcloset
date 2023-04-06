@@ -26,9 +26,9 @@ import {
 
 import dayjs from "dayjs";
 import { useState, useEffect } from "react";
-import { db, auth } from '../Login';
-import { ref, push, onValue, remove } from "firebase/database";
-import deleteicon from '../pages/icons/delete-02.png';
+import { db, auth } from "../Login";
+import { ref, push, onValue, remove, update } from "firebase/database";
+import deleteicon from "../pages/icons/delete-02.png";
 
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
@@ -45,6 +45,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
   const [eventDate, setEventDate] = React.useState("");
   const [eventIsAllDay, setEventIsAllDay] = React.useState(false);
   const [eventStartTime, setEventStartTime] = React.useState("");
+  const [evevntOutfit, setEventOutfit] = React.useState([]);
   const [savedOutfits, setSavedOutfits] = useState([]);
   const user = auth.currentUser.uid;
   const [showSavedOutfits, setShowSavedOutfits] = useState(false);
@@ -53,11 +54,10 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
     return event.isAllDay ? "All-Day Event" : `Starts at ${event.startTime}`;
   };
 
-
-
   const navigate = useNavigate();
 
   const routeChange = () => {
+    setEventOutfit([]);
     let path = "/closet";
     navigate(path);
   };
@@ -75,14 +75,14 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
 
     const outfitsRef = ref(db, `users/${user}/closet/outfits`);
     onValue(outfitsRef, (snap) => {
-        const outfitsArray = [];
-        const keys = [];
-        snap.forEach((childSnap) => {
-            const childData = childSnap.val();
-            outfitsArray.push(childData); 
-            keys.push(childSnap.key);
-        });
-        setSavedOutfits(outfitsArray);
+      const outfitsArray = [];
+      const keys = [];
+      snap.forEach((childSnap) => {
+        const childData = childSnap.val();
+        outfitsArray.push(childData);
+        keys.push(childSnap.key);
+      });
+      setSavedOutfits(outfitsArray);
     });
   }, [deleteKey]);
 
@@ -126,6 +126,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
       isAllDay: eventIsAllDay,
       startTime: eventStartTime,
       hasOutfit: eventMap.get(updateKey).hasOutfit,
+      outfit: eventMap.get(updateKey).outfit,
     };
 
     let newMap = new Map(eventMap);
@@ -143,12 +144,14 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
       isAllDay: eventMap.get(outfitKey).isAllDay,
       startTime: eventMap.get(outfitKey).startTime,
       hasOutfit: false,
+      outfit: [],
     };
 
     let newMap = new Map(eventMap);
 
     updateEvent(eventData, outfitKey, newMap);
     eventMapModifier(newMap);
+    setEventOutfit([]);
     setOutfitKey(-1);
   };
 
@@ -159,28 +162,30 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
       isAllDay: eventMap.get(outfitKey).isAllDay,
       startTime: eventMap.get(outfitKey).startTime,
       hasOutfit: true,
+      outfit: evevntOutfit,
     };
 
     let newMap = new Map(eventMap);
 
     updateEvent(eventData, outfitKey, newMap);
+    setEventOutfit([]);
     eventMapModifier(newMap);
     setOutfitKey(-1);
   };
 
   const buttonClick = (button) => {
-    switch(button) {
-        case "saved-outfits":
-            setShowSavedOutfits(true);
-            console.log("saved outfits buttons clicked");
-            break;
-        case "close-saved-outfits":
-            setShowSavedOutfits(false);
-            break;
-        default:
-            break;
+    switch (button) {
+      case "saved-outfits":
+        setShowSavedOutfits(true);
+        console.log("saved outfits buttons clicked");
+        break;
+      case "close-saved-outfits":
+        setShowSavedOutfits(false);
+        break;
+      default:
+        break;
     }
-  }
+  };
 
   return (
     <Box
@@ -255,7 +260,10 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
                         <IconButton
                           edge="end"
                           aria-label="outfit"
-                          onClick={() => setOutfitKey(entry[0])}
+                          onClick={() => {
+                            setEventOutfit(value.outfit);
+                            setOutfitKey(entry[0]);
+                          }}
                         >
                           <CheckroomIcon />
                         </IconButton>
@@ -266,36 +274,77 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
                           }}
                         >
                           <DialogTitle>
-                            {entry[0].hasOutfit
+                            {value.hasOutfit
                               ? "Update Outfit"
                               : "Pick an Outfit"}
                           </DialogTitle>
                           <DialogContent>
-                            <DialogContentText>
-                              {entry[0].hasOutfit
+                            {value.outfit.length !== 0 && (
+                              <Stack
+                                direction="column"
+                                alignItems="center"
+                                justifyContent="center"
+                              >
+                                <Typography variant="h6">
+                                  Your Chosen Outfit
+                                </Typography>
+                                <div style={{ display: "inline" }}>
+                                  {value.outfit.map((item, idx) => (
+                                    <img
+                                      key={idx}
+                                      className="outfit-item"
+                                      src={item.image}
+                                      alt={item.name}
+                                    />
+                                  ))}
+                                </div>
+                              </Stack>
+                            )}
+                            <DialogContentText sx={{ paddingTop: "10px" }}>
+                              {value.hasOutfit
                                 ? "Update your outfit by simply selecting" +
                                   " a new tile from the following saved outfit choices"
                                 : "Pick the outfit of your choice for this" +
                                   " event by clicking on the corresponding tile"}
                             </DialogContentText>
-                            {/* Your Saved Outfit */}
-                            <Stack>{/* Stuff about the outfit tiles */}
-                            <div>
-                                <Button onClick={() => buttonClick("saved-outfits")}>Outfits</Button>
-                                    {showSavedOutfits && 
-                                    <div className="saved-outfits-b box">
-                                            {savedOutfits.map((outfit, index) => (
-                                                <div key={index} className="outfit">
-                                                    {outfit.map((item, index) => (
-                                                        <img key={index} className="outfit-item" src={item.image} alt={item.name} />
-                                                    ))}
-                                                </div>
-                                            ))}
-                                        <Button onClick={() => buttonClick("close-saved-outfits")}>
-                                            close
-                                        </Button>
-                                    </div>}
-                            </div>
+                            <Stack>
+                              <div>
+                                <Button
+                                  onClick={() => buttonClick("saved-outfits")}
+                                >
+                                  Outfits
+                                </Button>
+                                {showSavedOutfits && (
+                                  <div className="saved-outfits-b box">
+                                    {savedOutfits.map((outfit, index) => (
+                                      <Button
+                                        key={index}
+                                        className="outfit"
+                                        onClick={() => {
+                                          setEventOutfit(outfit);
+                                          buttonClick("close-saved-outfits");
+                                        }}
+                                      >
+                                        {outfit.map((item, index) => (
+                                          <img
+                                            key={index}
+                                            className="outfit-item"
+                                            src={item.image}
+                                            alt={item.name}
+                                          />
+                                        ))}
+                                      </Button>
+                                    ))}
+                                    <Button
+                                      onClick={() =>
+                                        buttonClick("close-saved-outfits")
+                                      }
+                                    >
+                                      close
+                                    </Button>
+                                  </div>
+                                )}
+                              </div>
                             </Stack>
                             <DialogContentText>
                               Didn't like any of your saved outfits, click on
@@ -304,13 +353,26 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
                             <Button onClick={routeChange}>Create Outfit</Button>
                           </DialogContent>
                           <DialogActions>
-                            <Button onClick={() => setOutfitKey(-1)}>
+                            <Button
+                              onClick={() => {
+                                setEventOutfit([]);
+                                setOutfitKey(-1);
+                              }}
+                            >
                               Cancel
                             </Button>
                             <Button onClick={handleRemoveThenClose}>
                               Remove Outfit
                             </Button>
-                            <Button onClick={() => {}}>Save</Button>
+                            <Button
+                              onClick={handleSaveThenClose}
+                              disabled={
+                                JSON.stringify(value.outfit) ===
+                                JSON.stringify(evevntOutfit)
+                              }
+                            >
+                              Save
+                            </Button>
                           </DialogActions>
                         </Dialog>
                         <Dialog open={updateKey !== -1} onClose={handleClose}>
@@ -373,10 +435,10 @@ const UpcomingEvents = ({ eventMap, eventMapModifier }) => {
                   >
                     <ListItemText
                       primary={
-                        <React.Fragment>
+                        <Stack direction="column" alignItems="flex-start">
                           <Typography variant="h6">{value.title}</Typography>
                           <Typography variant="body2">{value.date}</Typography>
-                        </React.Fragment>
+                        </Stack>
                       }
                       secondary={timeDisplayHandler(value)}
                     />

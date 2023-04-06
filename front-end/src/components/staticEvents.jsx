@@ -41,6 +41,7 @@ const addEvent = (eventData, map) => {
     isAllDay: eventData.isAllDay,
     startTime: eventData.startTime,
     hasOutfit: eventData.hasOutfit,
+    outfit: eventData.outfit,
   };
 
   map.set(map.size + 1, eventObj);
@@ -54,6 +55,7 @@ const updateEvent = (eventData, uid, map) => {
   eventObj.isAllDay = eventData.isAllDay;
   eventObj.startTime = eventData.startTime;
   eventObj.hasOutfit = eventData.hasOutfit;
+  eventObj.outfit = eventData.outfit;
 };
 
 const deleteEvent = (uid, map) => {
