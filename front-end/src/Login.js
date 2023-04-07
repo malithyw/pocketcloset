@@ -51,6 +51,7 @@ function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, i
       id="outlined-basic"
       label="Password"
       fullWidth
+      input type="password"
       onChange={handlePassChange}
       variant="outlined"
     />

@@ -20,6 +20,7 @@ const Calendar = ({ aboveEvents, setAboveEvents }) => {
       >
         <CalendarComponent setCurrentDay={setCurrentDate} events={events} />
         <NewEventDialog
+          currentDate={currentDate}
           events={events}
           eventsModifier={setEvents}
           setAboveEvents={setAboveEvents}

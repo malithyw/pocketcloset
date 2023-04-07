@@ -11,8 +11,8 @@ import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
 function fakeFetch(date, events, { signal }) {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
-      const month = date.month();
-      const year = date.year();
+      const month = dayjs(date).month();
+      const year = dayjs(date).year();
 
       const daysToHighlight = [];
       events.forEach((k) => {
@@ -112,6 +112,13 @@ const CalendarComponent = ({ events, setCurrentDay }) => {
     fetchHighlightedDays(date);
   };
 
+  function convert(str) {
+    var date = new Date(str),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = (date.getDate());
+    return [date.getFullYear(), mnth, day].join("-");
+  }
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
@@ -129,8 +136,9 @@ const CalendarComponent = ({ events, setCurrentDay }) => {
           },
         }}
         onChange={(date) => {
-          setCurrentDay(`${date.year()}-${date.month()}-${date.day()}`);
-          setSelectedDate(date);
+          setCurrentDay(convert(date));
+          // changed the following
+          setSelectedDate(convert(date));
         }}
       />
     </LocalizationProvider>

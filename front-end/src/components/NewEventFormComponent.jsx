@@ -23,14 +23,15 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import { addEvent } from "./staticEvents";
 
-const NewEventDialog = ({ events, eventsModifier, setAboveEvents }) => {
+const NewEventDialog = ({currentDate, events, eventsModifier, setAboveEvents }) => {
   const [open, setOpen] = React.useState(false);
   const [eventTitle, setEventTitle] = React.useState("");
-  const [eventDate, setEventDate] = React.useState("");
+  const [eventDate, setEventDate] = React.useState(dayjs(currentDate).format("YYYY-MM-DD"));
   const [eventTime, setEventTime] = React.useState("");
   const [isAllDay, setIsAllDay] = React.useState(false);
 
   const handleClickOpen = () => {
+    setEventDate(dayjs(currentDate).format("YYYY-MM-DD"))
     setOpen(true);
   };
 
@@ -99,8 +100,10 @@ const NewEventDialog = ({ events, eventsModifier, setAboveEvents }) => {
               <DatePicker
                 disablePast
                 label="Date"
+                defaultValue={dayjs(currentDate)}
                 onChange={(e) => {
                   setEventDate(dayjs(e.$d).format("YYYY-MM-DD"));
+                  // console.log(e.$D)
                 }}
               />
               <FormControlLabel
