@@ -140,6 +140,7 @@ const Closet = () =>  {
     const handleSaveOutfit = () => {
         if (outfitItems.length > 1 & savedOutfits.length < 9) {
             addOutfitToUserCloset();
+            alert("Your outfit has been added to 'Outfits'");
         }
     };
 
@@ -147,6 +148,7 @@ const Closet = () =>  {
         console.log(item.name);
         const dbRef = ref(db, `users/${user}/closet/clothes`);
         push(dbRef, item);
+        alert("The item has been added to your closet");
     }
 
     const addOutfitToUserCloset = () => {
@@ -219,7 +221,7 @@ const Closet = () =>  {
                     </Button>
                     <input type="text" placeholder="Search" onChange={handleSearch}/>
                     <div>
-                        <Button onClick={() => buttonClick("saved-outfits")}>saved</Button>
+                        <Button onClick={() => buttonClick("saved-outfits")}>Outfits</Button>
                             {showSavedOutfits && 
                             <div className="saved-outfits-b box">
                                     {savedOutfits.map((outfit, index) => (
@@ -242,7 +244,7 @@ const Closet = () =>  {
             <Row>
                 <Button onClick={() => buttonClick("common-items")}>Common Items</Button>
                     {showCommonItems && 
-                    <div className="saved-outfits-b box"> 
+                    <div className="common-items-b box"> 
                         <p>Click the + button to add the item to your closet</p>
                         {closet.clothes.map(item => (
                             <div>
