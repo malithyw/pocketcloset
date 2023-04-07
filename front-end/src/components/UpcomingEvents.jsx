@@ -272,7 +272,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
                           <CheckroomIcon />
                         </IconButton>
                         <Dialog
-                          open={outfitKey !== -1}
+                          open={outfitKey === entry[0]}
                           onClose={() => {
                             setOutfitKey(-1);
                           }}
