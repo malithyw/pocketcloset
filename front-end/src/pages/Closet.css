@@ -1,7 +1,7 @@
 .screen {
-  justify-content: center;
   height: 1000px;
-  background-image: url("./icons/background.png") ;
+  background-image: url("./icons/background.png");
+  max-width: 350px;
 }
 
 .top-row {
@@ -18,7 +18,7 @@
   padding-bottom: 20px;
 }
 
-Button {
+Button:not(.MuiButtonBase-root) {
   background-color: transparent !important;
   border-color: transparent !important;
 }
@@ -42,7 +42,6 @@ Button {
 .outfit-b {
   height: 30%;
 }
-
 
 .clothing-b {
   height: 10%;
@@ -71,29 +70,29 @@ Button {
 }
 
 .clothing-a-left {
-  border-color: #D77A97 !important;
-  color: #D77A97 !important;
+  border-color: #d77a97 !important;
+  color: #d77a97 !important;
   margin-left: 0px;
 }
 .clothing-a-right {
-  border-color: #D77A97 !important;
-  color: #D77A97 !important;
+  border-color: #d77a97 !important;
+  color: #d77a97 !important;
   margin-right: 0px;
 }
 
 .top-a {
-  border-color: white !important  
+  border-color: white !important;
 }
 
 input {
   border-radius: 50px;
   justify-content: center;
   border-color: white;
-  color: #D77A97;
+  color: #d77a97;
 }
 
 input::placeholder {
-  color: #D77A97;
+  color: #d77a97;
 }
 
 .search-bar {
@@ -101,7 +100,6 @@ input::placeholder {
   align-items: center;
   gap: 0px;
 }
-
 
 .date-info {
   display: flex;
@@ -121,7 +119,7 @@ input::placeholder {
 }
 
 .corner-button {
-  color: #D77A97 !important;
+  color: #d77a97 !important;
   position: absolute;
 }
 
@@ -132,9 +130,8 @@ input::placeholder {
   left: 40px;
 }
 
-
 .saved-outfits-b {
-  color: #D77A97 !important;
+  color: #d77a97 !important;
   position: fixed;
   top: 24%;
   left: 3%;
@@ -142,5 +139,20 @@ input::placeholder {
   height: 54%;
   background-color: white;
   padding-top: 50px;
+  z-index: 999;
 }
 
+.common-items-b {
+  color: #d77a97 !important;
+  position: fixed;
+  top: 10%;
+  left: 3%;
+  width: 88%;
+  height: 54%;
+  background-color: white;
+  z-index: 999;
+}
+
+.add-button {
+  color: #d77a97 !important;
+}

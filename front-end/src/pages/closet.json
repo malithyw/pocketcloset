@@ -1,33 +1,28 @@
 {
   "clothes": [
     {
-      "name": "search for a clothing item",
-      "tags": ["none"],
-      "image": ""
-    },
-    {
       "name": "Red T-Shirt",
-      "tags": ["red", "tops"],
+      "tags": ["red", "tops", "all"],
       "image": "https://media.istockphoto.com/id/1318878952/vector/vector-realistic-t-shirt.jpg?s=612x612&w=0&k=20&c=uMO9WZk27CgfGvfM177p0j7WwxD0cnR_N3cAmMsYaeE="
     },
     {
       "name": "Blue Jeans",
-      "tags": ["blue", "bottoms"],
+      "tags": ["blue", "bottoms", "all"],
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuj-dMlhlTYUbJWx9-kHHiAdezG7FU68bBZn8CAXPMuw7wSXTi3_mHYAT9SNbpiduuPaq5yKyCVTo&usqp=CAU&ec=48600113"
     },
     {
       "name": "Black Sneakers",
-      "tags": ["black", "shoes"],
+      "tags": ["black", "shoes", "all"],
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRThdW-TgRImVp9iJgo2PSGawJfJX4jVmlZW13bDGOIPQ&usqp=CAU&ec=48600113"
     },
     {
       "name": "Green Sweater",
-      "tags": ["green", "sweater", "tops"],
+      "tags": ["green", "sweater", "tops", "all"],
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9RXyArgnU3txi5F6fuJJSlEUdO5sO0uXUIavYqx6VJdcpXJ633ewfAJzzj53wXyezTsg3j_9Zajs&usqp=CAU&ec=48600113"
     },
     {
       "name": "Blue Jacket",
-      "tags": ["blue", "tops", "jacket"],
+      "tags": ["blue", "tops", "jacket", "all"],
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCdG8aWoIz_R2sSUfvgFQsvXWRxB9sMYzNw6JOSrmbww&usqp=CAU&ec=48600113"
     }
   ],
@@ -36,27 +31,26 @@
     {
       "id": 0,
       "day": "Yesterday",
-      "date": "Mar 28",
+      "date": "Apr 5",
       "temperature": 70,
       "conditions": "cloudy"
     },
     {
       "id": 1,
       "day": "Today",
-      "date": "Mar 29",
+      "date": "Apr 6",
       "temperature": 67,
       "conditions": "sunny"
     },
     {
       "id": 2,
       "day": "Tomorrow",
-      "date": "Mar 30",
+      "date": "Apr 7",
       "temperature": 75,
       "conditions": "rainy"
     }
   ]
 }
-
 
 
 

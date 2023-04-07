@@ -17,7 +17,7 @@ const Home = () =>  {
         <div>
             <img
       src={require('../images/background.png')}
-      className='img-fluid shadow-4' width='auto'
+      className='img-fluid shadow-4' height={height} width={width}
       alt='not working'/> 
 
         </div>
