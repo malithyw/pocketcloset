@@ -12,23 +12,25 @@ const Calendar = ({ aboveEvents, setAboveEvents }) => {
   console.log(currentDate);
 
   return (
-    <Stack
-      direction="column"
-      spacing={0}
-      sx={{ alignItems: "center", justifyContent: "center" }}
-    >
-      <CalendarComponent setCurrentDay={setCurrentDate} events={events} />
-      <NewEventDialog
-        events={events}
-        eventsModifier={setEvents}
-        setAboveEvents={setAboveEvents}
-      />
-      <UpcomingEvents
-        eventMap={events}
-        eventMapModifier={setEvents}
-        setAboveEvents={setAboveEvents}
-      />
-    </Stack>
+    <div className="screen">
+      <Stack
+        direction="column"
+        spacing={0}
+        sx={{ alignItems: "center", justifyContent: "center" }}
+      >
+        <CalendarComponent setCurrentDay={setCurrentDate} events={events} />
+        <NewEventDialog
+          events={events}
+          eventsModifier={setEvents}
+          setAboveEvents={setAboveEvents}
+        />
+        <UpcomingEvents
+          eventMap={events}
+          eventMapModifier={setEvents}
+          setAboveEvents={setAboveEvents}
+        />
+      </Stack>
+    </div>
   );
 };
 

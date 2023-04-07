@@ -45,6 +45,7 @@ const CameraComponent = (props) => {
                                     <div className="otherButtons">
                                         <img className="screenshot" src={screenshotButton} onClick={() => {
                                             //source code: https://www.npmjs.com/package/react-webcam
+                                            // timer = window.setTimeout(3000);
                                             const image = getScreenshot();
                                             takePhoto(image);
                                         }}/>
