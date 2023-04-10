@@ -14,26 +14,25 @@ const EVENTS = new Map();
 let UID = 0;
 const TODAY = new Date().toISOString().split("T")[0];
 
-const createUID = () => {
-  return UID++;
-};
+// const createUID = () => {
+//   return UID++;
+// };
 
-EVENTS.set(createUID(), {
-  id: createUID(),
-  title: "University",
-  date: TODAY,
-  isAllDay: false,
-  startTime: "9:30 am",
-  hasOutfit: false,
-});
+// EVENTS.set(createUID(), {
+//   title: "University",
+//   date: TODAY,
+//   isAllDay: false,
+//   startTime: "9:30 am",
+//   hasOutfit: false,
+// });
 
-EVENTS.set(createUID(), {
-  title: "Dinner with Friends",
-  date: TODAY,
-  isAllDay: false,
-  startTime: "7:00 pm",
-  hasOutfit: false,
-});
+// EVENTS.set(createUID(), {
+//   title: "Dinner with Friends",
+//   date: TODAY,
+//   isAllDay: false,
+//   startTime: "7:00 pm",
+//   hasOutfit: false,
+// });
 
 const addEvent = (eventData, map) => {
   let eventObj = {
@@ -42,9 +41,10 @@ const addEvent = (eventData, map) => {
     isAllDay: eventData.isAllDay,
     startTime: eventData.startTime,
     hasOutfit: eventData.hasOutfit,
+    outfit: eventData.outfit,
   };
 
-  map.set(createUID(), eventObj);
+  map.set(map.size + 1, eventObj);
 };
 
 const updateEvent = (eventData, uid, map) => {
@@ -55,6 +55,7 @@ const updateEvent = (eventData, uid, map) => {
   eventObj.isAllDay = eventData.isAllDay;
   eventObj.startTime = eventData.startTime;
   eventObj.hasOutfit = eventData.hasOutfit;
+  eventObj.outfit = eventData.outfit;
 };
 
 const deleteEvent = (uid, map) => {
