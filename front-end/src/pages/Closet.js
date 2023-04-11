@@ -84,7 +84,6 @@ const Closet = () =>  {
     
     const updateBackgroundImage = () => {
         const weathercode = weatherData.daily.weathercode[index];
-        console.log(weathercode)
         switch(weathercode) {
             case 1:
             case 2:
@@ -160,7 +159,6 @@ const Closet = () =>  {
             setOutfitKeys(keys);
         });
         fetchWeatherData();
-        console.log("hello");
     }, [index, day]);
 
     const buttonClick = (button) => {
@@ -286,9 +284,7 @@ const Closet = () =>  {
                             x
                         </Button>
                         {alertMessage}
-                        asoghdaosdghsapguhapfuhaspdfuaspfuasdfpasdfasdfasdfasdf
                     </div>
-
                     }
                     <Button className="corner-button bottom-0 end-0" onClick={handleSaveOutfit}>
                         save
