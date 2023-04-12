@@ -4,7 +4,6 @@ import './Camera.css';
 import CameraComponent from '../components/CameraComponent';
 
 import { initializeApp } from "firebase/app";
-import Tag from "../components/tagComponent";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDiomZpBaGnw99a60AA2u6rgA3wCmU_wXg",
@@ -113,16 +112,13 @@ const Camera = (props) => {
                         <input className="col-4" id="tagInput" onChange={updateInput} />
                         <button className="col-1" onClick={addTag}>Add</button>
                     </div>
-                    <div className="row">
-                        {tags.map(tag =>
+                        {tags.map(tag => 
                             <ui className="col">
-                            {/* <Tag tag={tag}/> */}
-                            <div style={{ textAlign: "left", color: "white", display: "inline-block", height: "35px", background: "pink", borderRadius: "15px", paddingLeft: "10px", paddingTop: "5px", paddingRight: "5px", marginRight: "-20px"}}>
+                            <div style={{ whiteSpace: "normal", textAlign: "left", color: "white", display: "inline-block", height: "35px", background: "pink", borderRadius: "15px", paddingLeft: "10px", paddingTop: "5px", paddingRight: "5px",marginLeft:"15px", marginBottom: "15px"}}>
                                 {tag}
                                 <button style={{ textAlign: "right", marginTop: "-20px", marginLeft:"-1px"}} id={tag} onClick={deleteTag}>x</button>
                             </div>
                         </ui>)}
-                    </div>
                     <div className="otherButtons">
                         <button onClick={save}>Save Piece</button>
                     </div>
