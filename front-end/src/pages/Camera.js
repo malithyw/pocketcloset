@@ -19,8 +19,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const Camera = (props) => {
-    const height = 70;
-    const width = 70;
     const [picture, setPicture] = React.useState("");
     const [contin, setContin] = React.useState(false);
     const [tags, setTags] = React.useState([]);
@@ -76,7 +74,7 @@ const Camera = (props) => {
             "name": name,
             "tags": tags
         };
-        if (tags.length != 0) {
+        if (tags.length !== 0) {
             fetch(`${firebaseConfig.databaseURL + "/users/" + user.uid}/closet/clothes/.json`, { method: 'POST', body: JSON.stringify(piece) })
                 .then((res) => {
                     if (res.status !== 200) {
