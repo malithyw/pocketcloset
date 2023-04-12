@@ -40,8 +40,7 @@ const CameraComponent = (props) => {
                         <li>White Background</li>
                         <li>Clothing Item Centered</li>
                         <div className="row">
-                            <Webcam height={600} 
-        width={400}>
+                            <Webcam>
                                 {({ getScreenshot }) => (
                                     <div className="otherButtons">
                                         <img className="screenshot" src={screenshotButton} onClick={() => {

@@ -69,6 +69,7 @@ const Camera = (props) => {
 
         const addNameToTags = tags;
         addNameToTags.push(name);
+        addNameToTags.push("all")
         setTags(addNameToTags);
         let piece = {
             "image": picture,
