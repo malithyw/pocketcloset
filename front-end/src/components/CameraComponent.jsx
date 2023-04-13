@@ -29,8 +29,12 @@ const CameraComponent = (props) => {
         <div>
             {
                 ifPicture ? <div>
-                    <button onClick={deletePhoto}>X</button>
-                    <img src={picture} />
+                    <div className="row">
+                        <button onClick={deletePhoto}>X</button>
+                    </div>
+                    <div className="row">
+                        <img src={picture} />
+                    </div>
                     <div className="otherButtons" >
                         <button onClick={sendDataToCamera}>Continue</button>
                     </div>
@@ -49,9 +53,8 @@ const CameraComponent = (props) => {
                                         {({
                                             onImageUpload,
                                         }) => (
-                                         <div >
-                                            <button onClick={
-                                                onImageUpload}>
+                                         <div>
+                                            <button onClick={onImageUpload}>
                                                 Click to add Image Here
                                             </button>
                                         </div>
