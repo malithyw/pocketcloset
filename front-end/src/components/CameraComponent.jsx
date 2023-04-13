@@ -1,8 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import Webcam from "react-webcam";
 import '../pages/Camera.css';
-import screenshotButton from '../pages/icons/screenshotButton.webp';
+import ImageUploading from 'react-images-uploading';
 
 const CameraComponent = (props) => {
     const [ifPicture, setIfPicture] = React.useState(false);
@@ -12,16 +11,18 @@ const CameraComponent = (props) => {
         props.sendDataToCamera([picture, true]);
     }
 
-    //if comes back from tags, deletes image do we want a reset?
-
-    function takePhoto(image) {
-        setPicture(image);
-        setIfPicture(true);
+    function deletePhoto() {
+        setPicture([]);
+        setIfPicture(false);
     }
 
-    function deletePhoto() {
-        setPicture("");
-        setIfPicture(false);
+    function addImage(list) { 
+        if (list !== []) {
+            setPicture(list[0].dataURL);
+            setIfPicture(true);
+        } else { 
+            setIfPicture(false);
+        }
     }
 
     return (
@@ -35,23 +36,27 @@ const CameraComponent = (props) => {
                     </div>
                 </div> :
                     <div>
-                        <p>Better Photos With:</p>
+                        <p>Some Tips When Taking Photos:</p>
                         <li>Good Lighting</li>
                         <li>White Background</li>
                         <li>Clothing Item Centered</li>
                         <div className="row">
-                            <Webcam>
-                                {({ getScreenshot }) => (
-                                    <div className="otherButtons">
-                                        <img className="screenshot" src={screenshotButton} onClick={() => {
-                                            //source code: https://www.npmjs.com/package/react-webcam
-                                            // timer = window.setTimeout(3000);
-                                            const image = getScreenshot();
-                                            takePhoto(image);
-                                        }}/>
-                                    </div>
-                                )}
-                            </Webcam>
+                            <ImageUploading
+                                maxNumber={1}
+                                dataURLKey="dataURL"
+                                onChange={(imageList) => addImage(imageList)}
+                                >
+                                        {({
+                                            onImageUpload,
+                                        }) => (
+                                         <div >
+                                            <button onClick={
+                                                onImageUpload}>
+                                                Click to add Image Here
+                                            </button>
+                                        </div>
+                                         )}
+                        </ImageUploading>
                         </div>
                     </div>}
         </div>
