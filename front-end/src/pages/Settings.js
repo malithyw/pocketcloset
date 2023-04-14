@@ -98,24 +98,24 @@ const Settings = (props) => {
         }
     }
 
-    const changeBackground = (right) => { 
+    const changeBackground = (right) => {
         if (right) {
             if (currBackground === backgroundOptions.length - 1) {
                 setCurrBackground(0);
-            } else { 
+            } else {
                 setCurrBackground(currBackground + 1);
             }
-        } else { 
+        } else {
             if (currBackground === 0) {
                 setCurrBackground(backgroundOptions.length - 1);
-            } else { 
+            } else {
                 setCurrBackground(currBackground - 1);
             }
 
         }
     }
 
-    const saveBackground = () => { 
+    const saveBackground = () => {
         let background = backgroundOptions[currBackground];
         fetch(`${databaseURL + "users/" + props.internalUser.uid}/background/.json`, {
             method: "PUT", body: JSON.stringify({ background }),
@@ -133,7 +133,7 @@ const Settings = (props) => {
             <div className="title">Change Background</div>
             <div className="row">
                 <div className="col-3">
-                <button onClick={() => changeBackground(false)}>{"<"}</button>
+                    <button onClick={() => changeBackground(false)}>{"<"}</button>
                 </div>
                 <div className="col-6">
                     <img className="image" src={backgroundOptions[currBackground]} />
@@ -142,7 +142,9 @@ const Settings = (props) => {
                     <button onClick={() => changeBackground(true)}>{">"}</button>
                 </div>
             </div>
-            <button onClick={saveBackground}>Save New Background</button>
+            <div className="row">
+                <button onClick={saveBackground}>Save New Background</button>
+            </div>
             <p className="title">Add/Change Name?</p>
             <div className="row">
                 <p className="col-4">Name:</p>
@@ -157,8 +159,8 @@ const Settings = (props) => {
             </div>
             <div className="row">
                 <Nav.Link href="#/home" onClick={logOut}>Log Out</Nav.Link>
+            </div>
         </div>
-    </div>
     );
 }
 
