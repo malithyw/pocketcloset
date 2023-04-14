@@ -6,12 +6,6 @@ body > div {
   padding: 0;
   height: 100%;
 }
-.screen {
-  background-image: url("./icons/background.png");
-  height: 860px;
-  max-width: 420px;
-  margin-top: -10px;
-}
 
 h2 {
   margin: 0;

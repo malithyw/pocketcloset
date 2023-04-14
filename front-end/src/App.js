@@ -32,6 +32,7 @@ function App() {
   const [internalUser, setInternalUser] = useState(null);
   const [loaded, setLoaded] = useState(null);
   const [email, setEmail] = useState(null);
+  const [background, setBackground] = useState(null);
 
   return (
     <div>
@@ -47,6 +48,7 @@ function App() {
             setLoaded={setLoaded}
             email={email}
             setEmail={setEmail}
+            setBackground={setBackground}
           ></Login>
         </div>
       }
@@ -113,13 +115,13 @@ function App() {
                   exact
                   path="/calendar"
                   element={
-                    <Calendar aboveEvents={events} setAboveEvents={setEvents} />
+                    <Calendar aboveEvents={events} setAboveEvents={setEvents} background={background} />
                   }
                 />
-                <Route exact path="/closet" element={<Closet />} />
-                <Route exact path="/camera" element={<Camera user={user} />} />
+                <Route exact path="/closet" element={<Closet background={background} />} />
+                <Route exact path="/camera" element={<Camera user={user} background={background} />} />
                 <Route exact path="/home" element={<Home />} />
-                <Route exact path="/settings" element={<Settings setUser={setUser} setEvents={setEvents} setEmail={setEmail} setInternalUser={setInternalUser} setLoaded={setLoaded} events={events} internalUser={internalUser} />} />
+                <Route exact path="/settings" element={<Settings setUser={setUser} setEvents={setEvents} setEmail={setEmail} setInternalUser={setInternalUser} setLoaded={setLoaded} events={events} internalUser={internalUser} setBackground={setBackground} background={background}/>} />
                 <Route exact path="*" element={<Home />} />
               </Routes>
             </HashRouter>

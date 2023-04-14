@@ -23,7 +23,7 @@ import rainy from './backgrounds/rainy.jpg'
 import snowy from './backgrounds/snowy.jpg'
 import thunderstorm from './backgrounds/thunderstorm.jpg'
 
-const Closet = () =>  {
+const Closet = (props) =>  {
     const [allClothes, setAllClothes] = useState([]);
     const [clothes, setClothes] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -241,7 +241,7 @@ const Closet = () =>  {
     }
 
     return (
-        <Container className="screen" style={{backgroundImage: `url(${backgroundImg})`}}>
+        <Container style={{ backgroundImage: `url(${props.background})`, width: '400px', height: '990px' }}>
             <Row className="top-row">
                 <Col>
                      <Button className="top-button" onClick={() => buttonClick("help")}>

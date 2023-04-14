@@ -5,14 +5,14 @@ import NewEventDialog from "../components/NewEventFormComponent";
 import UpcomingEvents from "../components/UpcomingEvents";
 // import { EVENTS } from "../Login";
 
-const Calendar = ({ aboveEvents, setAboveEvents }) => {
+const Calendar = ({ aboveEvents, setAboveEvents, background }) => {
   let [currentDate, setCurrentDate] = React.useState("");
   let [events, setEvents] = React.useState(aboveEvents);
   console.log(aboveEvents);
   console.log(currentDate);
 
   return (
-    <div className="screen">
+    <div style={{ backgroundImage: `url(${background})`, width: '400px', height: '990px' }}>
       <Stack
         direction="column"
         spacing={0}
