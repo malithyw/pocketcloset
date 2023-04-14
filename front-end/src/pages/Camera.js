@@ -19,8 +19,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const Camera = (props) => {
-    const height = 70;
-    const width = 70;
     const [picture, setPicture] = React.useState("");
     const [contin, setContin] = React.useState(false);
     const [tags, setTags] = React.useState([]);
@@ -69,13 +67,14 @@ const Camera = (props) => {
 
         const addNameToTags = tags;
         addNameToTags.push(name);
+        addNameToTags.push("all")
         setTags(addNameToTags);
         let piece = {
             "image": picture,
             "name": name,
             "tags": tags
         };
-        if (tags.length != 0) {
+        if (tags.length !== 0) {
             fetch(`${firebaseConfig.databaseURL + "/users/" + user.uid}/closet/clothes/.json`, { method: 'POST', body: JSON.stringify(piece) })
                 .then((res) => {
                     if (res.status !== 200) {
@@ -96,7 +95,7 @@ const Camera = (props) => {
     }
 
     return (
-        <body className="screen">
+        <body style={{ backgroundImage: `url(${props.background})`, width: '400px', height: '990px' }} >
             <div className="row">
                 <a>Add to Your Virtual Closet</a>
             </div>
@@ -113,12 +112,13 @@ const Camera = (props) => {
                         <input className="col-4" id="tagInput" onChange={updateInput} />
                         <button className="col-1" onClick={addTag}>Add</button>
                     </div>
-                    <div className="row">
-                        {tags.map(tag => <ui className="col-4">
-                            <p style={{ color: "white", height: "35px", width: "100px", background: "pink", borderRadius: "15px", textAlign: "left", marginLeft: "5px", paddingTop: "4px", paddingLeft: "10px" }}>{tag}
-                                <button style={{ textAlign: "right", marginTop: "-7px", marginLeft: "10px" }} id={tag} onClick={deleteTag}>x</button></p>
+                        {tags.map(tag => 
+                            <ui className="col">
+                            <div style={{ whiteSpace: "normal", textAlign: "left", color: "white", display: "inline-block", height: "35px", background: "pink", borderRadius: "15px", paddingLeft: "10px", paddingTop: "5px", paddingRight: "5px",marginLeft:"15px", marginBottom: "15px"}}>
+                                {tag}
+                                <button style={{ textAlign: "right", marginTop: "-20px", marginLeft:"-1px"}} id={tag} onClick={deleteTag}>x</button>
+                            </div>
                         </ui>)}
-                    </div>
                     <div className="otherButtons">
                         <button onClick={save}>Save Piece</button>
                     </div>

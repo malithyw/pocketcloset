@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { TextField, Alert, AlertTitle } from "@mui/material";
 // import {EVENTS} from "./components/staticEvents"
-import { initializeApp } from "firebase/app";
+import { initializeApp, registerVersion } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import Calendar from "./pages/Calendar";
 import { getDatabase } from "firebase/database";
+import firstBackground from './pages/backgrounds/rosy_brown.jpeg';
 
 // const EVENTS;
 const databaseURL = "https://pocketcloset-542e3-default-rtdb.firebaseio.com/";
@@ -32,7 +33,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getDatabase(app);
 
-function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, internalUser, setLoaded, loaded }) {
+function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, internalUser, setLoaded, loaded, setBackground }) {
   const [password, setPassword] = useState(null);
   const [alert, setAlert] = useState(null);
   const [firstInputValue, setFirstInputValue] = useState(null);
@@ -112,7 +113,7 @@ function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, i
         setInternalUser(userCredential.user);
         setLoaded(true);
         setFirstInputValue(null);
-
+        setBackground(firstBackground);
       })
       .catch((error) => {
         console.log("failed");
@@ -160,6 +161,18 @@ function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, i
         // props.user= userCredential.user
         setInternalUser(userCredential.user);
         loadUser(userCredential.user.uid);
+        fetch(`${firebaseConfig.databaseURL + "/users/" + userCredential.user.uid}/background/.json`, { method: 'GET' })
+        .then((res) => {
+          if (res.status !== 200) {
+            setBackground(firstBackground);
+          } else {
+            return res.json();
+          }
+        }).then(data => {
+          setBackground(data.background);
+        }).catch(
+          setBackground(firstBackground)
+      )
       })
       .catch((error) => {
         console.log("failed");

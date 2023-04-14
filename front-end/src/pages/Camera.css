@@ -21,6 +21,7 @@ input {
   color: black;
   border-color: rgb(196, 195, 195);
   height: 30px;
+  border-radius: 15px;
 }
 
 img {
