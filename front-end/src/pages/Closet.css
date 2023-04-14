@@ -18,6 +18,14 @@ Button:not(.MuiButtonBase-root) {
 
 .outfit-b {
   height: 35%;
+  padding-top: 30px;
+  padding-left: 5px;
+}
+
+.outfit-item {
+  width: 50px;
+  padding-left: 5px;
+  padding-top: 5px;
 }
 
 .box {
@@ -45,16 +53,16 @@ Button:not(.MuiButtonBase-root) {
 }
 
 .clothing-item {
-  width: 50px;
+  width: 80px;
   height: auto;
-  margin-left: 50px;
+  margin-left: 20px;
 }
 
 
 .searchBar {
   border-radius: 50px;
   justify-content: center;
-  border-color: white;
+  border-color: transparent;
   color: #d77a97 !important;
 }
 
@@ -79,9 +87,6 @@ input::placeholder {
   position: absolute;
 }
 
-.outfit-item {
-  width: 40px;
-}
 .redo {
   left: 40px;
 }
@@ -95,17 +100,6 @@ input::placeholder {
   height: 54%;
   background-color: white;
   padding-top: 50px;
-  z-index: 999;
-}
-
-.common-items-b {
-  color: #d77a97 !important;
-  position: fixed;
-  top: 10%;
-  left: 3%;
-  width: 88%;
-  height: 54%;
-  background-color: white;
   z-index: 999;
 }
 

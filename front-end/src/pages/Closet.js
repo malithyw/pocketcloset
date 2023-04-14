@@ -26,16 +26,13 @@ import thunderstorm from './backgrounds/thunderstorm.jpg'
 const Closet = (props) =>  {
     const [allClothes, setAllClothes] = useState([]);
     const [clothes, setClothes] = useState([]);
+    const [clothesKeys, setClothesKeys] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const [weatherInfo, setWeatherInfo] = useState([]);
     const [outfitItems, setOutfitItems] = useState([]);
     const [savedOutfits, setSavedOutfits] = useState([]);
     const [showSavedOutfits, setShowSavedOutfits] = useState(false);
-    const [showCommonItems, setShowCommonItems] = useState(false);
     const [outfitKeys, setOutfitKeys] = useState([]);
-    const [showHelpDoc, setShowHelpDoc] = useState(false);
     const user = auth.currentUser.uid;
-    const navigate = useNavigate();
     const [weatherData, setWeatherData] = useState(null);
     const [day, setDay] = useState(null);
     const [dayOfWeek, setDayOfWeek] = useState(null);
@@ -45,6 +42,7 @@ const Closet = (props) =>  {
     const [backgroundImg, setBackgroundImg] = useState(clearSky);
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const [searchEmpty, setSearchEmpty] = useState(true);
 
     const openAlert = (message) => {
         setAlertMessage(message);
@@ -135,17 +133,23 @@ const Closet = (props) =>  {
         parseWeatherData();
     };
 
-    useEffect(() => {
+    const loadClothes = () => {
         const clothesRef = ref(db, `users/${user}/closet/clothes`);
         onValue(clothesRef, (snapshot) => {
             const clothesArray = [];
+            const keys = [];
             snapshot.forEach((childSnapshot) => {
                 const childData = childSnapshot.val();
-                clothesArray.push(childData); 
+                clothesArray.push(childData);
+                keys.push(childSnapshot.key); 
             });
             setAllClothes(clothesArray);
+            setClothesKeys(keys);
         });
         setClothes(allClothes.filter(item => item.tags.includes(searchTerm)));
+    }
+
+    const loadOutfits = () => {
         const outfitsRef = ref(db, `users/${user}/closet/outfits`);
         onValue(outfitsRef, (snap) => {
             const outfitsArray = [];
@@ -158,8 +162,14 @@ const Closet = (props) =>  {
             setSavedOutfits(outfitsArray);
             setOutfitKeys(keys);
         });
+    }
+
+    useEffect(() => {
+        loadClothes();
+        loadOutfits();
         fetchWeatherData();
-    }, [index, day]);
+        handleSearchSubmit();
+    }, [index, day, searchTerm]);
 
     const buttonClick = (button) => {
         switch(button) {
@@ -187,7 +197,9 @@ const Closet = (props) =>  {
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
+        setSearchEmpty(false);
         if (event.target.value === "") {
+            setSearchEmpty(true);
             setSearchTerm("none");
             handleSearchSubmit();
         }
@@ -199,17 +211,8 @@ const Closet = (props) =>  {
 
     const logClothingItem = (itemName) => {
         if (typeof outfitItems.find(item =>item.name === itemName) === "undefined") {
-            if (outfitItems.length < 12) {
-                setOutfitItems([...outfitItems, clothes.find(item =>item.name === itemName)]);
-            }
+            setOutfitItems([...outfitItems, clothes.find(item =>item.name === itemName)]);            
         }
-    };
-    
-    const outfitGrid = {
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gridAutoRows: "40px",
-        gap: "10px",
     };
 
 
@@ -240,6 +243,15 @@ const Closet = (props) =>  {
         
     }
 
+    const deleteItem = (name, index) => {
+        console.log(clothesKeys[index]);
+        const dbRef = ref(db, `users/${user}/closet/clothes/${clothesKeys[index]}`);
+        remove(dbRef);
+        loadClothes();
+        handleSearchSubmit();
+    }
+
+    
     return (
         <Container style={{ backgroundImage: `url(${props.background})`, width: '400px', height: '990px' }}>
             <Row className="top-row">
@@ -266,18 +278,20 @@ const Closet = (props) =>  {
             </Row>
             <Row className="outfit-b box position-relative">
                 <Col>
-                <div style={outfitGrid}>
+                <div>
                     <Button className="corner-button top-0 start-0" onClick={handleUndo}>
                         <img src={undo} alt="u" ></img>  
                     </Button>
                     <Button className="corner-button top-0 end-0" onClick={handleReset}>
                         reset
                     </Button>
-                    {outfitItems.map(item => (
-                        <div>
-                            <img className="outfit-item" src={item.image} alt={item.name} />
-                        </div>
-                    ))}
+                    <div className="clothing-display">
+                        {outfitItems.map(item => (
+                            <div>
+                                <img className="clothing-item" src={item.image} alt={item.name} />
+                            </div>
+                        ))}
+                    </div>
                     {showAlert &&
                     <div className="alert-b box">
                         <Button className="corner-button top-0 end-0" onClick={() => closeAlert()}>
@@ -293,12 +307,19 @@ const Closet = (props) =>  {
                 </Col>
             </Row>
             <Row className="clothing-b box">
-                <Col className="clothing-display">
-                    {clothes.map(item => (
-                        <div>
-                            <img className="clothing-item" src={item.image} alt={item.name} onClick={() => logClothingItem(item.name)}/>
-                        </div>
-                    ))}
+                <Col>
+                    <div key={index} className = "clothing-display">
+                        {!searchEmpty && clothes.map((item, index) => (
+                            <div>
+                                <img className="clothing-item" src={item.image} alt={item.name} onClick={() => logClothingItem(item.name)}/>
+                                <Button onClick={() => deleteItem(item.name, index)}>
+                                    <img src={deleteicon} alt="delete"/>
+                                </Button>
+                            </div>
+                        ))
+                        
+                        }
+                    </div>
                 </Col>
             </Row>
             <Row>
@@ -308,7 +329,7 @@ const Closet = (props) =>  {
                     </Button>
                     <input className="searchBar" type="text" placeholder="Search for a clothing tag" onChange={handleSearch}/>
                     <div>
-                        <Button onClick={() => buttonClick("saved-outfits")}>Outfits</Button>
+                        <Button className="add-button" onClick={() => buttonClick("saved-outfits")}>Outfits</Button>
                             {showSavedOutfits && 
                             <div className="saved-outfits-b box">
                                     {savedOutfits.map((outfit, index) => (
