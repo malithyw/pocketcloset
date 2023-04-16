@@ -13,7 +13,7 @@ import redo from './icons/arrow-turn-backward-round.png';
 import savecal from './icons/calendar-04.png';
 import deleteicon from './icons/delete-02.png';
 import closet from './closet.json';
-import { db, auth } from '../Login';
+import { db, auth } from './Login';
 import { ref, push, onValue, remove } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import partlyCloudy from './backgrounds/partlyCloudy.jpg'
@@ -253,12 +253,12 @@ const Closet = (props) =>  {
 
     
     return (
-        <Container style={{ backgroundImage: `url(${props.background})`, width: '400px', height: '990px' }}>
+        <Container >
             <Row className="top-row">
                 <Col>
-                     <Button className="top-button" onClick={() => buttonClick("help")}>
+                     {/* <Button className="top-button" onClick={() => buttonClick("help")}>
                         <img src={bubbleChatQuestion} alt="help" />
-                    </Button>
+                    </Button> */}
                 </Col>
                 <Col>
                     <div className="weather-info">

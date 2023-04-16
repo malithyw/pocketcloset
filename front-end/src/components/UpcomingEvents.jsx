@@ -26,7 +26,7 @@ import {
 
 import dayjs from "dayjs";
 import { useState, useEffect } from "react";
-import { db, auth } from "../Login";
+import { db, auth } from "../pages/Login";
 import { ref, push, onValue, remove, update } from "firebase/database";
 import deleteicon from "../pages/icons/delete-02.png";
 
@@ -191,6 +191,29 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
     }
   };
 
+  function printlog() {
+    console.log(eventStartTime)
+    let day = dayjs(eventDate);
+    let hr = parseInt(eventStartTime.substring(0, 2));
+    let min = parseInt(eventStartTime.substring(3, 5));
+    console.log("hourrr ", hr)
+    console.log("minnnn ", min)
+    if (eventStartTime.includes("am")) {
+      if (hr === 12) {
+        hr = 0;
+      }
+    } else {
+      if (hr !== 12) {
+        hr += 12;
+      }
+    }
+    day = day.hour(hr);
+    day = day.minute(min);
+    // day = day.
+    console.log(day)
+    return day;
+  }
+
   return (
     <Box
       sx={{
@@ -257,6 +280,8 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
                             setEventDate(value.date);
                             setEventIsAllDay(value.isAllDay);
                             setEventStartTime(value.startTime);
+                            // console.log(value.date);
+                            console.log("hereeeee ", value.startTime);
                           }}
                         >
                           <EditIcon />
@@ -426,12 +451,14 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
                                   label="All Day Event"
                                   onChange={toggleAllDay}
                                 />
+                                {console.log(eventStartTime)}
                                 <TimePicker
                                   disabled={eventIsAllDay}
                                   label="Start Time"
-                                  defaultValue={updateTime}
+                                  defaultValue={printlog()}
                                   onChange={(e) => {
-                                    setEventStartTime(e.format("hh:mm a"));
+                                    setEventStartTime(e.format("hh:mm aa").substring(0, 8));
+                                    // printlog(e);
                                   }}
                                 />
                               </Stack>
