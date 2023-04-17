@@ -7,6 +7,12 @@ import useWindowDimensions from '../dimensions.js';
 import {
     updatePassword
 } from "firebase/auth";
+import {
+    Dialog,
+    DialogTitle,
+    DialogActions,
+    Button
+} from '@mui/material';
 import blue from './backgrounds/blue.png';
 import brown from './backgrounds/brown.png';
 import burntRed from './backgrounds/burnt_red.png';
@@ -22,6 +28,7 @@ const Settings = (props) => {
     const [newPassword, setNewPassword] = React.useState("");
     const [currBackground, setCurrBackground] = React.useState(0);
     const backgroundOptions = [blue, royalBlue, darkSeaGreen, rosyBrown, brown, burntRed, darkMode];
+    const [open, setOpen] = React.useState(false);
 
 
     const getCurrName = () => {
@@ -72,7 +79,6 @@ const Settings = (props) => {
     }
 
     const changeName = () => {
-        if (confirm("Are you sure that you want to change your name?")) {
             fetch(`${databaseURL + "users/" + props.internalUser.uid}/name.json`, {
                 method: "PUT", body: JSON.stringify({ name }),
             }).then(() => {
@@ -83,19 +89,16 @@ const Settings = (props) => {
                 setName("");
 
             });
-        }
     }
 
     const changePassword = () => {
-        if (confirm("Are you sure you want to change your password?")) {
             updatePassword(props.internalUser, newPassword).then(() => {
-                alert("password has successfully been changed");
                 let input = document.getElementById("newPassword");
                 input.value = "";
             }).catch((error) => {
                 alert(error);
             });
-        }
+        setOpen(false);
     }
 
     const changeBackground = (right) => {
@@ -122,6 +125,14 @@ const Settings = (props) => {
         }).then(() => {
             props.setBackground(background);
         });
+    }
+
+    function handleOpen() { 
+        setOpen(true);
+    }
+
+    function handleClose() { 
+        setOpen(false);
     }
 
     return (
@@ -155,7 +166,19 @@ const Settings = (props) => {
             <div className="row">
                 <p className="col-5">New Password:</p>
                 <input className="col-4" id="newPassword" label="New Password" onChange={handleChange} />
-                <button className="col-2" onClick={changePassword}>Change</button>
+                <React.Fragment>
+                    <button className="col-2" onClick={handleOpen}>Change</button>
+                <Dialog open={open} onClose={handleClose}>
+                            <DialogTitle>Are you sure you want to change your password?</DialogTitle>
+                            <DialogActions>
+                                <Button onClick={handleClose}>Cancel</Button>
+                                <Button
+                                    onClick={changePassword}>
+                                    Change Password
+          </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </React.Fragment>
             </div>
             <div className="row">
                 <Nav.Link href="#/home" onClick={logOut}>Log Out</Nav.Link>
