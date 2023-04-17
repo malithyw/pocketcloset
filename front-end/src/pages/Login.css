@@ -4,3 +4,21 @@
     max-width: 420px;
     margin-top: -10px;
   } */
+
+
+.fields {
+  padding-top: 40px;
+}
+
+.icons {
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+.welcome_back {
+  margin-top: 20px;
+}
+
+.change {
+  margin-top: 170px;
+}

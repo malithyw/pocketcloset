@@ -1,18 +1,31 @@
-import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { TextField, Alert, AlertTitle } from "@mui/material";
-// import {EVENTS} from "./components/staticEvents"
+import React, { useState } from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Alert from '@mui/material/Alert'
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { initializeApp, registerVersion } from "firebase/app";
+import { styled } from '@mui/material/styles';
+import { purple,red, pink, blue } from '@mui/material/colors';
+
+import "./Login.css"
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import Calendar from "./Calendar";
 import { getDatabase } from "firebase/database";
-import firstBackground from '../pages/backgrounds/rosy_brown.jpeg';
+import firstBackground from '../pages/backgrounds/blue.png';
 
-// const EVENTS;
 const databaseURL = "https://pocketcloset-542e3-default-rtdb.firebaseio.com/";
 
 const firebaseConfig = {
@@ -25,6 +38,58 @@ const firebaseConfig = {
   appId: "1:730839004045:web:0d1b296e019d2660b7c3c4",
   measurementId: "G-N05QV7RL04",
 };
+const BootstrapButton = styled(Button)({
+  boxShadow: 'none',
+  textTransform: 'none',
+  fontSize: 16,
+  padding: '6px 12px',
+  border: '1px solid',
+  lineHeight: 1.5,
+  backgroundColor: '#0063cc',
+  borderColor: '#0063cc',
+  fontFamily: [
+    '-apple-system',
+    'BlinkMacSystemFont',
+    '"Segoe UI"',
+    'Roboto',
+    '"Helvetica Neue"',
+    'Arial',
+    'sans-serif',
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"',
+  ].join(','),
+  '&:hover': {
+    backgroundColor: '#0069d9',
+    borderColor: '#0062cc',
+    boxShadow: 'none',
+  },
+  '&:active': {
+    boxShadow: 'none',
+    backgroundColor: '#0062cc',
+    borderColor: '#005cbf',
+  },
+  '&:focus': {
+    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+  },
+});
+
+const ChangeButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText(pink[100]),
+  backgroundColor: pink[100],
+  '&:hover': {
+    backgroundColor: pink[200],
+  },
+}));
+
+
+const SubmitButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText(blue[100]),
+  backgroundColor: blue[100],
+  '&:hover': {
+    backgroundColor: blue[200],
+  },
+}));
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -32,31 +97,37 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
 export const db = getDatabase(app);
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://github.com/malithyw/pocketcloset">
+        4px
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
-function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, internalUser, setLoaded, loaded, setBackground }) {
+const theme = createTheme();
+
+export default function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, internalUser, setLoaded, loaded, setBackground }) {
   const [password, setPassword] = useState(null);
   const [alert, setAlert] = useState(null);
   const [firstInputValue, setFirstInputValue] = useState(null);
+  const [signingIn, setSigningIn] = useState(true);
+  const [textColor, setTextColor] = useState("black");
 
-  const user_field = (
-    <TextField
-      id="outlined-basic"
-      label="Email"
-      fullWidth
-      onChange={handleUserChange}
-      variant="outlined"
-    />
-  );
-  const pass_field = (
-    <TextField
-      id="outlined-basic"
-      label="Password"
-      fullWidth
-      input type="password"
-      onChange={handlePassChange}
-      variant="outlined"
-    />
-  );
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+    signIn()
+  };
 
   const loadUser = (user_cred) => {
     setLoaded(true);
@@ -75,24 +146,6 @@ function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, i
       obj[key] = value;
       return obj;
     }, {});
-  };
-
-  const logOut = () => {
-    const sampleDict = {
-      events: JSON.stringify(mapToObj(events)),
-    };
-    console.log(internalUser.uid);
-    console.log(`${databaseURL + "users/" + internalUser.uid}.json`);
-    return fetch(`${databaseURL + "users/" + internalUser.uid}.json`, {
-      method: "PATCH",
-      body: JSON.stringify(sampleDict),
-    }).then((res) => {
-      setInternalUser(null);
-      setUser(null);
-      setEmail(null);
-      setLoaded(null);
-      setEvents(new Map());
-    });
   };
 
   const create = () => {
@@ -125,20 +178,6 @@ function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, i
   };
 
   const readIn = (json) => {
-    // const map = new Map();
-    // let counter = 0;
-    // console.log(Object.entries(json))
-    // for (const[key, value] in Object.entries(json)) {
-    //   // let eventObj = {
-    //   //   key: obj["title"],
-    //   //   date: obj["date"],
-    //   //   isAllDay: obj["isAllDay"],
-    //   //   startTime: obj["startTime"],
-    //   //   hasOutfit: obj["hasOutfit"],
-    //   // };
-    //   map.set(key, value)
-    //   counter++
-    // }
     const eventObj = JSON.parse(json);
     const map = new Map(Object.entries(eventObj));
     for (const key of map.keys()) {
@@ -146,7 +185,6 @@ function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, i
     }
     console.log(map);
     setEvents(map);
-    // {<Calendar events={events} setEvents={setEvents}></Calendar>}
   };
 
   const signIn = () => {
@@ -208,12 +246,10 @@ function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, i
     // console.log(password);
   }
 
+
   return (
-    
     <div>
-      {
-        !internalUser && (setBackground(firstBackground))}
-      
+      {!internalUser && (setBackground(firstBackground))}
       {alert && (
         <div>
           <Alert onClose={() => reset()} severity="error">
@@ -223,24 +259,185 @@ function Login({ events, setUser, setEvents, setEmail, email, setInternalUser, i
           </Alert>
         </div>
       )}
-      {!internalUser && (
+    {!internalUser && signingIn && (
+      <div>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <div className='icons'>
+          <Avatar sx={{ m: 1, bgcolor: 'pink' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          </div>
+          <Typography component="h1" variant="h5" color={textColor}>
+            Sign in
+          </Typography>
+          <div className='welcome_back'>
+          <Typography component="h2" variant="h4" color={textColor}>
+            Welcome back!
+          </Typography>
+          </div>
+          <Box className="fields" component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              className="fields"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              onChange={handleUserChange}
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              onChange={handlePassChange}
+              id="password"
+              autoComplete="current-password"
+            />
+            <div>
+
+              
+            <SubmitButton 
+              type="submit"
+              fullWidth
+              onClick={() => signIn()}
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              // color={"pink"}
+            >
+              Sign In
+            </SubmitButton>
+            </div>
+            {/* <Grid container> */}
+              {/* <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid> */}
+              {/* <Grid item> */}
+              <div className='change'>
+                <ChangeButton
+              type="submit"
+              fullWidth
+              onClick={() => setSigningIn(false)}
+              variant="contained"
+              sx={{ mt: 1, mb: 1 }}>            
+                  {"Don't have an account? Sign Up"}
+                </ChangeButton>
+                </div>
+              {/* </Grid> */}
+            {/* </Grid> */}
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
+    </ThemeProvider>
+    </div>
+    )}
+    {!internalUser && !signingIn && (
         <div>
-          {user_field}
-          {pass_field}
-          {
-            <Button variant="contained" onClick={() => signIn()}>
-              Login
-            </Button>
-          }
-          {
-            <Button variant="contained" onClick={() => create()}>
-              Create
-            </Button>
-          }
-        </div>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <div className='icons'>
+            <Avatar sx={{ m: 1, bgcolor: 'pink' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            </div>
+            <Typography component="h1" variant="h5" color={textColor}>
+              Create an Account
+            </Typography>
+            <div className='welcome_back'>
+            {/* <Grid container justify="flex-end"> */}
+              <Typography justify="flex-end" component="h2" variant="h5" color={textColor}>
+                Welcome to PocketCloset!
+              </Typography>
+            {/* </Grid> */}
+            </div>
+            <Box className="fields" component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <TextField
+                className="fields"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                onChange={handleUserChange}
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                onChange={handlePassChange}
+                id="password"
+                autoComplete="current-password"
+              />
+
+              <SubmitButton
+                type="submit"
+                fullWidth
+                onClick={() => create()}
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                // color={"pink"}
+              >
+                Create Account
+              </SubmitButton>
+              {/* <Grid container> */}
+                {/* <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid> */}
+                {/* <Grid item> */}
+                <div className='change'>
+                  <ChangeButton
+                type="submit"
+                fullWidth
+                onClick={() => setSigningIn(true)}
+                variant="contained"
+                sx={{ mt: 1, mb: 1 }}>            
+                    {"Already have an account? Sign In"}
+                  </ChangeButton>
+                </div>
+                {/* </Grid> */}
+              {/* </Grid> */}
+            </Box>
+          </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+      </ThemeProvider>
+      </div>
       )}
     </div>
   );
 }
-
-export default Login;

@@ -71,7 +71,7 @@ function App() {
                         alt="not working"
                       />
                     </Nav.Link>
-                    <Nav.Link href="#/home">
+                    {/* <Nav.Link href="#/home">
                       {" "}
                       <img
                         src={homePNG}
@@ -80,7 +80,7 @@ function App() {
                         width={width}
                         alt="not working"
                       />
-                    </Nav.Link>
+                    </Nav.Link> */}
                     <Nav.Link href="#/calendar">
                       <img
                         src={calendarPNG}
@@ -113,9 +113,9 @@ function App() {
                 />
                 <Route exact path="/closet" element={<Closet background={background} />} />
                 <Route exact path="/camera" element={<Camera user={user} background={background} />} />
-                <Route exact path="/home" element={<Home />} />
+                {/* <Route exact path="/home" element={<Home />} /> */}
                 <Route exact path="/settings" element={<Settings setUser={setUser} setEvents={setEvents} setEmail={setEmail} setInternalUser={setInternalUser} setLoaded={setLoaded} events={events} internalUser={internalUser} setBackground={setBackground} background={background}/>} />
-                <Route exact path="*" element={<Home />} />
+                <Route exact path="*" element={<Calendar aboveEvents={events} setAboveEvents={setEvents} background={background} />} />
               </Routes>
             </HashRouter>
           </div>
