@@ -85,8 +85,7 @@ const Camera = (props) => {
     }
 
     function addTag() {
-        //also check for duplicate tags
-        if (newTag !== "") {
+        if (newTag !== "" && tags.indexOf(newTag) === -1) {
             let allTags = tags;
             allTags.push(newTag);
             setTags(allTags);
@@ -105,31 +104,30 @@ const Camera = (props) => {
     }
 
     function save() {
-
-        const addNameToTags = tags;
-        addNameToTags.push(name);
-        addNameToTags.push("all")
-        setTags(addNameToTags);
-        let piece = {
-            "image": picture,
-            "name": name,
-            "tags": tags
-        };
-        if (tags.length !== 0) {
-            fetch(`${firebaseConfig.databaseURL + "/users/" + user.uid}/closet/clothes/.json`, { method: 'POST', body: JSON.stringify(piece) })
-                .then((res) => {
-                    if (res.status !== 200) {
-                        console.log("piece not stored");
-                    } else {
-                        console.log("piece stored");
-                    }
-                }).catch(error => alert(error))
-            setTags([]);
-            setName("");
-            setNewTag("");
-            setPicture("");
-            setOpenSave(true);
-        } else {
+        if (name !== "" && tags.length !== 0) {
+            const addNameToTags = tags;
+            addNameToTags.push(name);
+            addNameToTags.push("all")
+            setTags(addNameToTags);
+            let piece = {
+                "image": picture,
+                "name": name,
+                "tags": tags
+            };
+                fetch(`${firebaseConfig.databaseURL + "/users/" + user.uid}/closet/clothes/.json`, { method: 'POST', body: JSON.stringify(piece) })
+                    .then((res) => {
+                        if (res.status !== 200) {
+                            console.log("piece not stored");
+                        } else {
+                            console.log("piece stored");
+                        }
+                    }).catch(error => alert(error))
+                setTags([]);
+                setName("");
+                setNewTag("");
+                setPicture("");
+                setOpenSave(true);
+        } else { 
             alert("Cannot add piece to closet without tags or name!");
         }
     }
@@ -160,24 +158,24 @@ const Camera = (props) => {
                     </div>
                     <img src={picture} />
                     <div className="row">
-                        <TextField id="nameInput"label="Name" variant="outlined" className="input" onChange={updateInput} />
+                        <TextField id="nameInput"label="Piece's Name" variant="filled" className="input" onChange={updateInput} />
+                    </div>
+                    <div className="row-2">
+                        <TextField id="tagInput" label="Tags" variant="filled" className="input" style={{marginBottom: "20px"}} onChange={updateInput} />
+                        <button className="col-2" onClick={addTag}>+</button>
                     </div>
                     <div className="row">
-                        <TextField id="tagInput"label="Tags" variant="outlined" className="input" onChange={updateInput} />
-                        <button className="col-1" onClick={addTag}>Add</button>
-                    </div>
-                    <div className="tagGroup">
                     {tags.map(tag =>
-                        <ui className="col">
-                            <div style={{ whiteSpace: "normal", textAlign: "left", color: "black", display: "inline-block", height: "35px", background: "white", borderRadius: "15px", paddingLeft: "10px", paddingTop: "5px", paddingRight: "5px", marginLeft: "15px", marginBottom: "15px" }}>
+                        <div className="col-5">
+                            <div id={tag} key={tag} style={{ whiteSpace: "normal", textAlign: "left", color: "black", display: "inline-block", height: "35px", background: "white", borderRadius: "15px", paddingLeft: "5px", paddingTop: "5px", paddingRight: "5px" }}>
                                 {tag}
-                                <button style={{ textAlign: "right", marginTop: "-20px", marginLeft: "-1px", color: "black" }} id={tag} onClick={deleteTag}>x</button>
+                                <button style={{ textAlign: "right", marginTop: "-20px",marginLeft: "7px", color: "black"}} id={tag} onClick={deleteTag}>x</button>
                             </div>
-                        </ui>)}
+                        </div>)}
                     </div>
                     <React.Fragment>
                     <div className="otherButtons">
-                        <button onClick={save}>Save Piece</button>
+                            <Button onClick={save} variant="contained" style={{background: "white", color: "black"}}>Save</Button>
                     </div>
                         <Dialog open={openSave} onClose={handleSaveClose}>
                             <DialogTitle>Item added to Closet</DialogTitle>
