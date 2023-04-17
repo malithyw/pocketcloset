@@ -85,7 +85,7 @@ const Camera = (props) => {
     }
 
     function addTag() {
-        if (newTag !== "" && tags.indexOf(newTag) === -1) {
+        if (newTag !== "" && tags.indexOf(newTag) === -1 && tags.length <= 3) {
             let allTags = tags;
             allTags.push(newTag);
             setTags(allTags);
