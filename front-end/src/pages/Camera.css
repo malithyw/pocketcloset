@@ -1,13 +1,15 @@
 a {
   font-size: 25px;
   text-align: center;
-  padding-top: 10px;
+  color: white;
+  padding-top: -40px;
+  padding-bottom: 10px;
 }
 
 p:not(.MuiTypography-root) {
   font-size: 18px;
   text-align: center;
-  color: white;
+  color: black;
 }
 
 button {
@@ -17,17 +19,16 @@ button {
   color: white;
 }
 
-input {
+.input {
   color: black;
-  border-color: rgb(196, 195, 195);
-  height: 30px;
-  border-radius: 15px;
+  border-color: black;
+  border-radius: 20px;
+  width: 200px;
 }
 
 img {
   margin-bottom: 5px;
   margin-top: 10px;
-  text-align: center;
 }
 
 .otherButtons {
@@ -37,7 +38,8 @@ img {
 
 .screenshot {
   width: 50px;
-  margin-top: 10px;
+  margin-top: 20px;
+  font-size: 40px;
 }
 /* 
 .screen {
@@ -50,6 +52,7 @@ img {
 .row {
   color: white;
   margin-top: 10px;
+  justify-content: center;
 }
 
 .col-4 {
@@ -64,11 +67,46 @@ li:not(.MuiListItem-root) {
   margin-bottom: 20px;
 }
 
-ui {
-  color: white;
+.icon {
+  height: 47px;
+  width: 50px;
+  margin-bottom: 10px;
 }
 
-.pic {
-  width: 600;
-  height: 300;
+.icon2 {
+  height: 47px;
+  width: 50px;
+  margin-bottom: 5px;
+  margin-top: -45px;
+}
+
+.row-2 {
+  margin-top: 20px;
+  text-align: center;
+  margin-bottom: -15px;
+}
+
+.Accordion {
+  width: 270px;
+  margin-bottom: 25px;
+}
+
+.FirstListItem {
+  margin-bottom: -35px;
+  font-size: 13px;
+  margin-top: -40px;
+}
+
+.ListItem {
+  margin-bottom: -30px;
+  font-size: 13px;
+}
+
+.goBack{
+  font-size: 25px;
+  margin-left: 10px;
+  font-weight: 300;
+}
+.tagGroup{
+  margin-top: 20px;
 }

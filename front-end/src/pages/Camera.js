@@ -7,8 +7,18 @@ import {
     DialogTitle,
     DialogActions,
     DialogContent,
-  } from "@mui/material";
+    List,
+    ListItem,
+    Box,
+    ListItemText,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Typography,
+    TextField
+} from "@mui/material";
 import CameraComponent from '../components/CameraComponent';
+import camera from "../images/camera.png";
 
 import { initializeApp } from "firebase/app";
 
@@ -25,6 +35,13 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+// const useStyles = makeStyles({
+//     accordionSummary: {
+//         justifyContent: center,
+//         display: flex
+//     }
+//   })
+
 const Camera = (props) => {
     const [picture, setPicture] = React.useState("");
     const [contin, setContin] = React.useState(false);
@@ -32,6 +49,10 @@ const Camera = (props) => {
     const [newTag, setNewTag] = React.useState("");
     const [name, setName] = React.useState("");
     const [open, setOpen] = React.useState(false);
+    const [openSave, setOpenSave] = React.useState(false);
+
+    // const classes = useStyles();
+
     const user = props.user;
 
     const handleCameraComponentImage = (data) => {
@@ -39,11 +60,16 @@ const Camera = (props) => {
         setContin(data[1]);
     }
 
-    function handleOpen() { 
+    function handleOpen() {
         setOpen(true);
     }
 
-    function handleClose() { 
+    function handleSaveClose() { 
+        setContin(false);
+        setOpenSave(false);
+    }
+
+    function handleClose() {
         setOpen(false);
     }
 
@@ -96,15 +122,14 @@ const Camera = (props) => {
                         console.log("piece not stored");
                     } else {
                         console.log("piece stored");
-                        alert("Piece has been added to closet");
                     }
                 }).catch(error => alert(error))
             setTags([]);
             setName("");
             setNewTag("");
             setPicture("");
-            setContin(false);
-        } else { 
+            setOpenSave(true);
+        } else {
             alert("Cannot add piece to closet without tags or name!");
         }
     }
@@ -112,44 +137,86 @@ const Camera = (props) => {
     return (
         <div >
             {contin ?
-                <div style={{ backgroundImage: `url(${props.background})`, width: '400px', height: '990px' }}>
+                <div>
                     <React.Fragment>
-                    <button onClick={handleOpen}>{"<"}</button>
-                    <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Delete Image?</DialogTitle>
-                        <DialogContent>Going back will delete the image</DialogContent>
-                        <DialogActions>
+                        <button onClick={handleOpen} className="goBack">{"<"}</button>
+                        <Dialog open={open} onClose={handleClose}>
+                            <DialogTitle>Delete Image?</DialogTitle>
+                            <DialogContent>Going back will delete the image</DialogContent>
+                            <DialogActions>
                                 <Button onClick={handleClose}>Cancel</Button>
-          <Button
-            onClick={goBack}>
-            Okay
+                                <Button
+                                    onClick={goBack}>
+                                    Okay
           </Button>
-        </DialogActions>
+                            </DialogActions>
                         </Dialog>
-        </React.Fragment>
+                    </React.Fragment>
+                    <div className="row-2">
+                        <img className="icon2" src={camera} />
+                    </div>
+                    <div className="row">
+                        <a>Add to Your Virtual Closet</a>
+                    </div>
                     <img src={picture} />
                     <div className="row">
-                        <p className="col-4">Name</p>
-                        <input className="col-4" id="nameInput" onChange={updateInput} />
+                        <TextField id="nameInput"label="Name" variant="outlined" className="input" onChange={updateInput} />
                     </div>
                     <div className="row">
-                        <p className="col-4">Tags</p>
-                        <input className="col-4" id="tagInput" onChange={updateInput} />
+                        <TextField id="tagInput"label="Tags" variant="outlined" className="input" onChange={updateInput} />
                         <button className="col-1" onClick={addTag}>Add</button>
                     </div>
-                        {tags.map(tag => 
-                            <ui className="col">
-                            <div style={{ whiteSpace: "normal", textAlign: "left", color: "white", display: "inline-block", height: "35px", background: "pink", borderRadius: "15px", paddingLeft: "10px", paddingTop: "5px", paddingRight: "5px",marginLeft:"15px", marginBottom: "15px"}}>
+                    <div className="tagGroup">
+                    {tags.map(tag =>
+                        <ui className="col">
+                            <div style={{ whiteSpace: "normal", textAlign: "left", color: "black", display: "inline-block", height: "35px", background: "white", borderRadius: "15px", paddingLeft: "10px", paddingTop: "5px", paddingRight: "5px", marginLeft: "15px", marginBottom: "15px" }}>
                                 {tag}
-                                <button style={{ textAlign: "right", marginTop: "-20px", marginLeft:"-1px"}} id={tag} onClick={deleteTag}>x</button>
+                                <button style={{ textAlign: "right", marginTop: "-20px", marginLeft: "-1px", color: "black" }} id={tag} onClick={deleteTag}>x</button>
                             </div>
                         </ui>)}
+                    </div>
+                    <React.Fragment>
                     <div className="otherButtons">
                         <button onClick={save}>Save Piece</button>
                     </div>
+                        <Dialog open={openSave} onClose={handleSaveClose}>
+                            <DialogTitle>Item added to Closet</DialogTitle>
+                            <DialogActions>
+                                <Button
+                                    onClick={handleSaveClose}>
+                                    Okay
+          </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </React.Fragment>
                 </div>
                 :
                 <div>
+                    <div className="row-2">
+                        <img className="icon" src={camera} />
+                    </div>
+                    <div className="row">
+                        <a>Add to Your Virtual Closet</a>
+                    </div>
+                    <div className="row">
+                        <Accordion className="Accordion">
+                            <AccordionSummary>
+                                <Typography align="center" sx={{ width: '100%' }}>Tips?</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <List>
+                                    <ListItem className="FirstListItem">
+                                        <ListItemText>• Make sure you have good lighting for clearer images.</ListItemText>
+                                    </ListItem>
+                                    <ListItem className="ListItem">
+                                        <ListItemText>• An empty background will make your clothing piece pop out more.</ListItemText>
+                                    </ListItem>
+                                    <ListItem className="ListItem">
+                                        <ListItemText>• If your photos are centered, your pieces will look better in your closet.</ListItemText>
+                                    </ListItem>
+                                </List></AccordionDetails>
+                        </Accordion>
+                    </div>
                     <CameraComponent sendDataToCamera={handleCameraComponentImage} />
                 </div>
             }
