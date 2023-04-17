@@ -13,8 +13,8 @@ p:not(.MuiTypography-root) {
 button {
   font-size: 18px;
   font-weight: 400;
-  margin-bottom: 10px;
   color: white;
+  margin-left: 15px;
 }
 
 input {
@@ -33,6 +33,9 @@ img {
 .otherButtons {
   text-align: center;
   color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 30px;
 }
 
 .screenshot {
@@ -66,4 +69,12 @@ li:not(.MuiListItem-root) {
 
 ui {
   color: white;
+}
+
+.or {
+  color:white;
+  font-size: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: center;
 }

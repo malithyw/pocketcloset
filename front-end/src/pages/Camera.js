@@ -102,7 +102,9 @@ const Camera = (props) => {
             {contin ?
                 <div>
                     <button onClick={goBack}>{"<"}</button>
-                    <img src={picture} />
+                    <div className="row">
+                        <img src={picture} />
+                    </div>
                     <div className="row">
                         <p className="col-4">Name</p>
                         <input className="col-4" id="nameInput" onChange={updateInput} />

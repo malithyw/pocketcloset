@@ -2,6 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../pages/Camera.css';
 import ImageUploading from 'react-images-uploading';
+import Webcam from 'react-webcam';
+import screenshotButton from '../pages/icons/screenshotButton.webp';
 
 const CameraComponent = (props) => {
     const [ifPicture, setIfPicture] = React.useState(false);
@@ -25,12 +27,17 @@ const CameraComponent = (props) => {
         }
     }
 
+    function takePhoto(image) { 
+        setIfPicture(true);
+        setPicture(image);
+    }
+
     return (
         <div>
             {
                 ifPicture ? <div>
                     <div className="row">
-                        <button onClick={deletePhoto}>X</button>
+                        <button style={{textAlign: "left"}} onClick={deletePhoto}>X</button>
                     </div>
                     <div className="row">
                         <img src={picture} />
@@ -45,6 +52,21 @@ const CameraComponent = (props) => {
                         <li>White Background</li>
                         <li>Clothing Item Centered</li>
                         <div className="row">
+                            <Webcam>
+                                {({ getScreenshot }) => (
+                                    <div className="otherButtons">
+                                        <img className="screenshot" src={screenshotButton} onClick={() => {
+                                            //source code: https://www.npmjs.com/package/react-webcam
+                                            // timer = window.setTimeout(3000);
+                                            const image = getScreenshot();
+                                            takePhoto(image);
+                                        }}/>
+                                    </div>
+                                )}
+                            </Webcam>
+                        </div>
+                        <div className="or">or</div>
+                        <div style={{textAlign:"center"}} className="row">
                             <ImageUploading
                                 maxNumber={1}
                                 dataURLKey="dataURL"
@@ -55,7 +77,7 @@ const CameraComponent = (props) => {
                                         }) => (
                                          <div>
                                             <button onClick={onImageUpload}>
-                                                Click to add Image Here
+                                                Upload Image Here
                                             </button>
                                         </div>
                                          )}
