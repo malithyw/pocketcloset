@@ -8,39 +8,15 @@ const CameraComponent = (props) => {
     const [ifPicture, setIfPicture] = React.useState(false);
     const [picture, setPicture] = React.useState("");
 
-    const sendDataToCamera = () => {
-        props.sendDataToCamera([picture, true]);
-    }
-
-    //if comes back from tags, deletes image do we want a reset?
-
     function takePhoto(image) {
         setPicture(image);
         setIfPicture(true);
-    }
-
-    function deletePhoto() {
-        setPicture("");
-        setIfPicture(false);
+        props.sendDataToCamera([image, true]);
     }
 
     return (
-        <div>
-            {
-                ifPicture ? <div>
-                    <button onClick={deletePhoto}>X</button>
-                    <img src={picture} />
-                    <div className="otherButtons" >
-                        <button onClick={sendDataToCamera}>Continue</button>
-                    </div>
-                </div> :
-                    <div>
-                        <p>Better Photos With:</p>
-                        <li>Good Lighting</li>
-                        <li>White Background</li>
-                        <li>Clothing Item Centered</li>
-                        <div className="row">
-                            <Webcam>
+                    <div className="row">
+                        <Webcam>
                                 {({ getScreenshot }) => (
                                     <div className="otherButtons">
                                         <img className="screenshot" src={screenshotButton} onClick={() => {
@@ -53,8 +29,6 @@ const CameraComponent = (props) => {
                                 )}
                             </Webcam>
                         </div>
-                    </div>}
-        </div>
     );
 }
 

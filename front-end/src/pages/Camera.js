@@ -1,6 +1,13 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Camera.css';
+import {
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogActions,
+    DialogContent,
+  } from "@mui/material";
 import CameraComponent from '../components/CameraComponent';
 
 import { initializeApp } from "firebase/app";
@@ -24,6 +31,7 @@ const Camera = (props) => {
     const [tags, setTags] = React.useState([]);
     const [newTag, setNewTag] = React.useState("");
     const [name, setName] = React.useState("");
+    const [open, setOpen] = React.useState(false);
     const user = props.user;
 
     const handleCameraComponentImage = (data) => {
@@ -31,11 +39,18 @@ const Camera = (props) => {
         setContin(data[1]);
     }
 
+    function handleOpen() { 
+        setOpen(true);
+    }
+
+    function handleClose() { 
+        setOpen(false);
+    }
+
     function goBack() {
-        if (confirm("Going back will delete your image. Is this okay?")) { 
-            setPicture("");
-            setContin(false);
-        }
+        setPicture("");
+        setContin(false);
+        setOpen(false);
     }
 
     function deleteTag(event) {
@@ -95,13 +110,23 @@ const Camera = (props) => {
     }
 
     return (
-        <body style={{ backgroundImage: `url(${props.background})`, width: '400px', height: '990px' }} >
-            <div className="row">
-                <a>Add to Your Virtual Closet</a>
-            </div>
+        <div >
             {contin ?
-                <div>
-                    <button onClick={goBack}>{"<"}</button>
+                <div style={{ backgroundImage: `url(${props.background})`, width: '400px', height: '990px' }}>
+                    <React.Fragment>
+                    <button onClick={handleOpen}>{"<"}</button>
+                    <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Delete Image?</DialogTitle>
+                        <DialogContent>Going back will delete the image</DialogContent>
+                        <DialogActions>
+                                <Button onClick={handleClose}>Cancel</Button>
+          <Button
+            onClick={goBack}>
+            Okay
+          </Button>
+        </DialogActions>
+                        </Dialog>
+        </React.Fragment>
                     <img src={picture} />
                     <div className="row">
                         <p className="col-4">Name</p>
@@ -128,7 +153,7 @@ const Camera = (props) => {
                     <CameraComponent sendDataToCamera={handleCameraComponentImage} />
                 </div>
             }
-        </body>
+        </div>
     );
 }
 
