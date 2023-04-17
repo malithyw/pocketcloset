@@ -7,19 +7,14 @@ import background from "../images/background.png";
 
 const Home = () =>  {
     const { height, width } = useWindowDimensions();
-    // document.body.style.backgroundImage = homePIC;
 
     console.log("home")
-    return (
-    //     <div style={{ backgroundImage: `url(${background})`}}>
-    //     Hello World
-    //   </div>
-        <div>
-            <img
-      src={require('../images/background.png')}
-      className='img-fluid shadow-4' height={height} width={width}
-      alt='not working'/> 
+    console.log("height ", height)
+    console.log("width ", width)
 
+    return (
+        <div>
+            
         </div>
     );
 }
