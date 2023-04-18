@@ -103,7 +103,7 @@ function App() {
                 </Container>
               </Navbar>
               <Routes>
-                <Route exact path="/" element={<Home />} />
+                <Route exact path="/" element={<Calendar aboveEvents={events} setAboveEvents={setEvents} background={background} />} />
                 <Route
                   exact
                   path="/calendar"
@@ -113,7 +113,7 @@ function App() {
                 />
                 <Route exact path="/closet" element={<Closet background={background} />} />
                 <Route exact path="/camera" element={<Camera user={user} background={background} />} />
-                {/* <Route exact path="/home" element={<Home />} /> */}
+                <Route exact path="/home" element={<Calendar aboveEvents={events} setAboveEvents={setEvents} background={background} />} />
                 <Route exact path="/settings" element={<Settings setUser={setUser} setEvents={setEvents} setEmail={setEmail} setInternalUser={setInternalUser} setLoaded={setLoaded} events={events} internalUser={internalUser} setBackground={setBackground} background={background}/>} />
                 <Route exact path="*" element={<Calendar aboveEvents={events} setAboveEvents={setEvents} background={background} />} />
               </Routes>

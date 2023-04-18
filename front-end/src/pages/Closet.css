@@ -17,8 +17,15 @@ Button:not(.MuiButtonBase-root) {
 
 .outfit-b {
   height: 35%;
-  padding-top: 30px;
   padding-left: 5px;
+}
+
+.col.empty {
+  padding-top: 90px;
+}
+
+.col.not-empty {
+  padding-top: 30px;
 }
 
 .outfit-item {
@@ -48,6 +55,9 @@ Button:not(.MuiButtonBase-root) {
 .clothing-display {
   display: flex;
   flex-wrap: wrap;
+  max-height: 150px;
+  overflow: auto;
+  padding: -40px;
 }
 
 .clothing-item {
