@@ -1,15 +1,26 @@
 {
   "files": {
-    "main.css": "/pocketcloset/static/css/main.01758237.css",
-    "main.js": "/pocketcloset/static/js/main.f406b0c6.js",
-    "static/media/background.png": "/pocketcloset/static/media/background.1e0015097cbb44a2f6a6.png",
-    "static/media/real_background.png": "/pocketcloset/static/media/real_background.78ac31cd63f7aa103056.png",
+    "main.css": "/pocketcloset/static/css/main.61fd81de.css",
+    "main.js": "/pocketcloset/static/js/main.dbe0da6c.js",
+    "static/media/background.png": "/pocketcloset/static/media/background.03585cc1f1907abd2f42.png",
+    "static/media/snowy.jpg": "/pocketcloset/static/media/snowy.5af0a69d03be8ac6857d.jpg",
+    "static/media/rainy.jpg": "/pocketcloset/static/media/rainy.e641037491d03a63f0c1.jpg",
+    "static/media/screenshotButton.webp": "/pocketcloset/static/media/screenshotButton.f1f6d9339dc4a7ac02af.webp",
+    "static/media/cloudy.jpg": "/pocketcloset/static/media/cloudy.a3fc96d3433f728a3376.jpg",
+    "static/media/rosy_brown.jpeg": "/pocketcloset/static/media/rosy_brown.2a50278c574393785e71.jpeg",
+    "static/media/dark_sea_green.png": "/pocketcloset/static/media/dark_sea_green.328fb138f73f61f4e75f.png",
+    "static/media/royal_blue.png": "/pocketcloset/static/media/royal_blue.1282407ef82ed3483ac1.png",
+    "static/media/dark-mode.png": "/pocketcloset/static/media/dark-mode.338b6ffb0a3e116b8cdd.png",
+    "static/media/burnt_red.png": "/pocketcloset/static/media/burnt_red.c7015c942137420dfb29.png",
+    "static/media/brown.png": "/pocketcloset/static/media/brown.677f5d031a80b022fd12.png",
+    "static/media/blue.png": "/pocketcloset/static/media/blue.39ec9bbef46589a355f5.png",
+    "static/media/partlyCloudy.jpg": "/pocketcloset/static/media/partlyCloudy.6fb1e002261404623fc3.jpg",
     "index.html": "/pocketcloset/index.html",
-    "main.01758237.css.map": "/pocketcloset/static/css/main.01758237.css.map",
-    "main.f406b0c6.js.map": "/pocketcloset/static/js/main.f406b0c6.js.map"
+    "main.61fd81de.css.map": "/pocketcloset/static/css/main.61fd81de.css.map",
+    "main.dbe0da6c.js.map": "/pocketcloset/static/js/main.dbe0da6c.js.map"
   },
   "entrypoints": [
-    "static/css/main.01758237.css",
-    "static/js/main.f406b0c6.js"
+    "static/css/main.61fd81de.css",
+    "static/js/main.dbe0da6c.js"
   ]
 }

@@ -1,23 +1,4 @@
-.backbutton-settings {
-    margin-top: 25px;
-    margin-left: 25px;
-}
-.save-settings {
-    margin-top: 90px;
-    margin-left: 140px;
-}
-.back-settings {
-    margin-top: 180px;
-}
-.row {
-    margin-top: 140px;
-}
-.settings-name {
-    margin-top: 50px;
-    margin-left: -20px;
-    margin-bottom: 80px;
-}
-/* .a {
+.a {
     text-align: center;
     color: white;
     font-size: 25px;
@@ -29,15 +10,10 @@
     font-size: 20px;
     font-weight: 500;
 }
-*/
-/* button {
+button {
     text-align: center;
     font-size: 20px;
     font-weight: 600;
-} */
-.logoutbutton-settings {
-    padding-left: 60px;
-    padding-top: 40px;
 }
 .image {
     width: 150px;
@@ -52,25 +28,4 @@
 }
 .col {
     padding-top: 90px;
-}
-
-.internal-grid-settings {
-    margin-top:90px;
-    margin-left: 90px;
-}
-.passsubmit-settings {
-    margin-top: 50px;
-    margin-left: 65px;
-}
-.usersubmit-settings {
-    margin-top: 50px;
-    margin-left: 85px;
-}
-.userprompt-settings {
-    margin-top: 50px;
-    margin-left: 65px;
-}
-.userchange-settings {
-    margin-top: 200px;
-    margin-left: 35px;
 }
