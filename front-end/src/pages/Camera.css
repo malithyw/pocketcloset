@@ -42,13 +42,13 @@ img {
   width: 50px;
   margin-top: 10px;
 }
-
+/* 
 .screen {
   background-image: url("./icons/background.png");
   height: 860px;
   max-width: 420px;
   margin-top: -10px;
-}
+} */
 
 .row {
   color: white;

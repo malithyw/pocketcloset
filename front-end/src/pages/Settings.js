@@ -7,19 +7,29 @@ import useWindowDimensions from '../dimensions.js';
 import {
     updatePassword
 } from "firebase/auth";
-import { auth } from '../Login.js';
+import blue from './backgrounds/blue.png';
+import brown from './backgrounds/brown.png';
+import burntRed from './backgrounds/burnt_red.png';
+import darkSeaGreen from './backgrounds/dark_sea_green.png';
+import darkMode from './backgrounds/dark-mode.png';
+import rosyBrown from './backgrounds/rosy_brown.jpeg';
+import royalBlue from './backgrounds/royal_blue.png';
 
 const databaseURL = "https://pocketcloset-542e3-default-rtdb.firebaseio.com/";
 
 const Settings = (props) => {
     const [name, setName] = React.useState("");
     const [newPassword, setNewPassword] = React.useState("");
+    const [currBackground, setCurrBackground] = React.useState(0);
+    const backgroundOptions = [blue, royalBlue, darkSeaGreen, rosyBrown, brown, burntRed, darkMode];
 
-    const getCurrName = () => { 
+
+    const getCurrName = () => {
         fetch(`${databaseURL + "users/" + props.internalUser.uid}/name.json`, {
-            method: "GET"}).then((res) => {
+            method: "GET"
+        }).then((res) => {
             return res.json();
-        }).then(data => setChangedName(data.name)).catch((error) => { 
+        }).then(data => setChangedName(data.name)).catch((error) => {
             console.log(error);
         });
     }
@@ -88,13 +98,52 @@ const Settings = (props) => {
         }
     }
 
-    const { height, width } = useWindowDimensions();
+    const changeBackground = (right) => {
+        if (right) {
+            if (currBackground === backgroundOptions.length - 1) {
+                setCurrBackground(0);
+            } else {
+                setCurrBackground(currBackground + 1);
+            }
+        } else {
+            if (currBackground === 0) {
+                setCurrBackground(backgroundOptions.length - 1);
+            } else {
+                setCurrBackground(currBackground - 1);
+            }
+
+        }
+    }
+
+    const saveBackground = () => {
+        let background = backgroundOptions[currBackground];
+        fetch(`${databaseURL + "users/" + props.internalUser.uid}/background/.json`, {
+            method: "PUT", body: JSON.stringify({ background }),
+        }).then(() => {
+            props.setBackground(background);
+        });
+    }
 
     return (
-        <body className="background">
+        <div style={{ backgroundImage: `url(${props.background})`, width: '400px', height: '990px' }}>
             <div>
                 <p className="a">Settings</p>
                 <p className="a">Hello {changedName}</p>
+            </div>
+            <div className="title">Change Background</div>
+            <div className="row">
+                <div className="col-3">
+                    <button onClick={() => changeBackground(false)}>{"<"}</button>
+                </div>
+                <div className="col-6">
+                    <img className="image" src={backgroundOptions[currBackground]} />
+                </div>
+                <div className="col">
+                    <button onClick={() => changeBackground(true)}>{">"}</button>
+                </div>
+            </div>
+            <div className="row">
+                <button onClick={saveBackground}>Save New Background</button>
             </div>
             <p className="title">Add/Change Name?</p>
             <div className="row">
@@ -111,9 +160,7 @@ const Settings = (props) => {
             <div className="row">
                 <Nav.Link href="#/home" onClick={logOut}>Log Out</Nav.Link>
             </div>
-        </body>
-
-
+        </div>
     );
 }
 

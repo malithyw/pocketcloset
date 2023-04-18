@@ -95,7 +95,7 @@ const Camera = (props) => {
     }
 
     return (
-        <body className="screen">
+        <body style={{ backgroundImage: `url(${props.background})`, width: '400px', height: '990px' }} >
             <div className="row">
                 <a>Add to Your Virtual Closet</a>
             </div>
