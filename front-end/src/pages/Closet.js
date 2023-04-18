@@ -265,7 +265,7 @@ const Closet = (props) => {
   };
 
   return (
-    <Container>
+    <Container className="outfit-container">
       <Row className="top-row">
         <Col>
           {/* <Button className="top-button" onClick={() => buttonClick("help")}>

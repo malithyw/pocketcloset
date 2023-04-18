@@ -5,8 +5,9 @@
   background-repeat: no-repeat;
 } */
 
-.top-row {
+.row.top-row {
   /* padding-top: 70px; */
+  margin-top: 50px;
   padding-bottom: 30px;
 }
 
@@ -18,6 +19,10 @@ Button:not(.MuiButtonBase-root) {
 .outfit-b {
   height: 35%;
   padding-left: 5px;
+}
+
+.col {
+  padding-top: 30px;
 }
 
 .col.empty {
@@ -55,7 +60,7 @@ Button:not(.MuiButtonBase-root) {
 .clothing-display {
   display: flex;
   flex-wrap: wrap;
-  max-height: 150px;
+  max-height: 170px;
   overflow: auto;
   padding: -40px;
 }
