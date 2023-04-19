@@ -27,6 +27,7 @@
     "firebase": "^9.19.1",
     "prop-types": "^15.8.1",
     "react-bootstrap": "^2.7.2",
+    "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.9.0",
     "react-scripts": "^5.0.1",
     "react-webcam": "^7.0.1",
