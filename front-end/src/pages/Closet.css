@@ -21,12 +21,8 @@ Button:not(.MuiButtonBase-root) {
   padding-left: 5px;
 }
 
-.col {
-  padding-top: 30px;
-}
-
 .col.empty {
-  padding-top: 90px;
+  padding-top: 120px;
 }
 
 .col.not-empty {

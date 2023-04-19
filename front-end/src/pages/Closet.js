@@ -12,16 +12,14 @@ import undo from "./icons/arrow-turn-backward-round1.png";
 import redo from "./icons/arrow-turn-backward-round.png";
 import savecal from "./icons/calendar-04.png";
 import deleteicon from "./icons/delete-02.png";
-import closet from "./closet.json";
 import { db, auth } from "./Login";
 import { ref, push, onValue, remove } from "firebase/database";
-import { useNavigate } from "react-router-dom";
-import partlyCloudy from "./backgrounds/partlyCloudy.jpg";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Stack, Typography } from "@mui/material";
 import clearSky from "./backgrounds/clearSky.jpg";
-import cloudy from "./backgrounds/cloudy.jpg";
-import rainy from "./backgrounds/rainy.jpg";
-import snowy from "./backgrounds/snowy.jpg";
-import thunderstorm from "./backgrounds/thunderstorm.jpg";
+
+import WEATHER_CODES from "./WeatherCodes";
 
 const Closet = (props) => {
   const [allClothes, setAllClothes] = useState([]);
@@ -39,6 +37,7 @@ const Closet = (props) => {
   const [index, setIndex] = useState(0);
   const [maxTemperature, setMaxTemperature] = useState(0.0);
   const [minTemperature, setMinTemperature] = useState(0.0);
+  const [weatherCode, setWeatherCode] = useState(0);
   const [backgroundImg, setBackgroundImg] = useState(clearSky);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -83,56 +82,57 @@ const Closet = (props) => {
     const formattedDate = `${month} ${day}`;
     const maxTempC = weatherData.daily.temperature_2m_max[index];
     const minTempC = weatherData.daily.temperature_2m_min[index];
+    setWeatherCode(weatherData.daily.weathercode[index]);
     setMaxTemperature(Math.round((maxTempC * 9) / 5 + 32));
     setMinTemperature(Math.round((minTempC * 9) / 5 + 32));
     setDay(formattedDate);
     setDayOfWeek(tempDayOfWeek);
-    updateBackgroundImage();
+    // updateBackgroundImage();
   };
 
-  const updateBackgroundImage = () => {
-    const weathercode = weatherData.daily.weathercode[index];
-    switch (weathercode) {
-      case 1:
-      case 2:
-        setBackgroundImg(partlyCloudy);
-        break;
-      case 3:
-        setBackgroundImg(cloudy);
-        break;
-      case 51:
-      case 53:
-      case 55:
-      case 56:
-      case 57:
-      case 61:
-      case 63:
-      case 65:
-      case 66:
-      case 67:
-      case 80:
-      case 81:
-      case 82:
-        setBackgroundImg(rainy);
-        break;
-      case 71:
-      case 73:
-      case 75:
-      case 77:
-      case 85:
-      case 86:
-        setBackgroundImg(snowy);
-        break;
-      case 95:
-      case 96:
-      case 99:
-        setBackgroundImg(thunderstorm);
-        break;
-      default:
-        setBackgroundImg(clearSky);
-        break;
-    }
-  };
+  // const updateBackgroundImage = () => {
+  //   const weathercode = weatherData.daily.weathercode[index];
+  //   switch (weathercode) {
+  //     case 1:
+  //     case 2:
+  //       setBackgroundImg(partlyCloudy);
+  //       break;
+  //     case 3:
+  //       setBackgroundImg(cloudy);
+  //       break;
+  //     case 51:
+  //     case 53:
+  //     case 55:
+  //     case 56:
+  //     case 57:
+  //     case 61:
+  //     case 63:
+  //     case 65:
+  //     case 66:
+  //     case 67:
+  //     case 80:
+  //     case 81:
+  //     case 82:
+  //       setBackgroundImg(rainy);
+  //       break;
+  //     case 71:
+  //     case 73:
+  //     case 75:
+  //     case 77:
+  //     case 85:
+  //     case 86:
+  //       setBackgroundImg(snowy);
+  //       break;
+  //     case 95:
+  //     case 96:
+  //     case 99:
+  //       setBackgroundImg(thunderstorm);
+  //       break;
+  //     default:
+  //       setBackgroundImg(clearSky);
+  //       break;
+  //   }
+  // };
 
   const changeDay = (direction) => {
     if (direction === "left") {
@@ -267,33 +267,61 @@ const Closet = (props) => {
   return (
     <Container className="outfit-container">
       <Row className="top-row">
-        <Col>
-          {/* <Button className="top-button" onClick={() => buttonClick("help")}>
-                        <img src={bubbleChatQuestion} alt="help" />
-                    </Button> */}
-        </Col>
-        <Col>
+        <Col
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingTop: "-40px",
+          }}
+        >
           <div className="weather-info">
-            {index > 0 && (
-              <Button className="top-a arrow" onClick={() => changeDay("left")}>
-                &lt;
-              </Button>
-            )}
-            <p>
-              {dayOfWeek}, {day}
-              <br />
-              Max: {maxTemperature}°F
-              <br />
-              Low: {minTemperature}°F
-            </p>
-            {index < 6 && (
-              <Button
-                className="top-a arrow"
-                onClick={() => changeDay("right")}
-              >
-                &gt;
-              </Button>
-            )}
+            <Button
+              className="top-a arrow"
+              onClick={() => changeDay("left")}
+              style={{ opacity: index > 0 ? "1" : "0" }}
+              disabled={index === 0}
+            >
+              <NavigateBeforeIcon sx={{ height: "60px", width: "60px" }} />
+            </Button>
+            <Stack direction="column">
+              <Stack direction="row">
+                <img
+                  src={WEATHER_CODES[weatherCode].img}
+                  alt={WEATHER_CODES[weatherCode].text}
+                  style={{ height: "90px", width: "90px" }}
+                />
+                <Stack direction="column">
+                  <Typography
+                    align="center"
+                    variant="h4"
+                    component="div"
+                    color="black"
+                  >
+                    {dayOfWeek}
+                  </Typography>
+                  <Typography align="center" variant="h5" color="black">
+                    {day}
+                  </Typography>
+                </Stack>
+              </Stack>
+              <Stack direction="column">
+                <Typography align="right" variant="h6" color="black">
+                  High: {maxTemperature}°F
+                </Typography>
+                <Typography align="right" variant="h6" color="black">
+                  Low: {minTemperature}°F
+                </Typography>
+              </Stack>
+            </Stack>
+            <Button
+              className="top-a arrow"
+              onClick={() => changeDay("right")}
+              style={{ opacity: index < 6 ? "1" : "0" }}
+              disabled={index === 6}
+            >
+              <NavigateNextIcon sx={{ height: "60px", width: "60px" }} />
+            </Button>
           </div>
         </Col>
       </Row>
@@ -359,7 +387,10 @@ const Closet = (props) => {
         </div>
       </Row>
       <Row>
-        <Col className="search-bar justify-content-center d-flex align-items-center">
+        <Col
+          className="search-bar justify-content-center d-flex align-items-center"
+          style={{ paddingTop: "20px" }}
+        >
           <Button onClick={handleSearchSubmit}>
             <img src={searchicon} alt="Search" />
           </Button>
