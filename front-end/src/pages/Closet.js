@@ -289,12 +289,12 @@ const Closet = (props) => {
                 <img
                   src={WEATHER_CODES[weatherCode].img}
                   alt={WEATHER_CODES[weatherCode].text}
-                  style={{ height: "90px", width: "90px" }}
+                  style={{ height: "80px", width: "80px" }}
                 />
                 <Stack direction="column">
                   <Typography
                     align="center"
-                    variant="h4"
+                    variant="h3"
                     component="div"
                     color="black"
                   >
@@ -305,12 +305,22 @@ const Closet = (props) => {
                   </Typography>
                 </Stack>
               </Stack>
-              <Stack direction="column">
-                <Typography align="right" variant="h6" color="black">
-                  High: {maxTemperature}°F
-                </Typography>
-                <Typography align="right" variant="h6" color="black">
-                  Low: {minTemperature}°F
+              <Stack
+                direction="column"
+                spacing={2}
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Stack direction="row" spacing={3}>
+                  <Typography align="center" variant="h6" color="black">
+                    H: {maxTemperature}°F
+                  </Typography>
+                  <Typography align="center" variant="h6" color="black">
+                    L: {minTemperature}°F
+                  </Typography>
+                </Stack>
+                <Typography color="black" variant="body1" align="center">
+                  {WEATHER_CODES[weatherCode].text}
                 </Typography>
               </Stack>
             </Stack>
