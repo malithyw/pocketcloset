@@ -130,3 +130,8 @@ input::placeholder {
   z-index: 999;
   padding-top: 30px;
 }
+
+.help-img {
+  width: 70%;
+  height: auto;
+}

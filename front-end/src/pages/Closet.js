@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./Closet.css";
 import { useState, useEffect } from "react";
 import { Button, Row, Col, Container } from "react-bootstrap";
-import bubbleChatQuestion from "./icons/bubble-chat-question.png";
+import help from "./icons/bubble-chat-question.png";
 import star from "./icons/Vectorstar.png";
 import calendarplus from "./icons/calendar-plus-01.png";
 import cloud from "./icons/Vectorcloud.png";
@@ -18,6 +18,9 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Stack, Typography } from "@mui/material";
 import clearSky from "./backgrounds/clearSky.jpg";
+import page1 from "../images/closet-help-doc/page1.png"
+import page2 from "../images/closet-help-doc/page2.png"
+import page3 from "../images/closet-help-doc/page3.png"
 
 import WEATHER_CODES from "./WeatherCodes";
 
@@ -42,6 +45,7 @@ const Closet = (props) => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [searchEmpty, setSearchEmpty] = useState(true);
+  const [helpDoc, setHelpDoc] = useState(false);
 
   React.useEffect(() => {
     if (weatherData !== null) {
@@ -191,7 +195,7 @@ const Closet = (props) => {
         setShowSavedOutfits(false);
         break;
       case "help":
-        setShowHelpDoc(true);
+        setHelpDoc(true);
         console.log("help button clicked");
         break;
       case "common-items":
@@ -200,6 +204,8 @@ const Closet = (props) => {
       case "close-common-items":
         setShowCommonItems(false);
         break;
+      case "close-help":
+        setHelpDoc(false);
       default:
         break;
     }
@@ -275,6 +281,26 @@ const Closet = (props) => {
             paddingTop: "-40px",
           }}
         >
+          <div>
+            <Button>
+              <img src={help} onClick={() => buttonClick("help")}></img>
+              {helpDoc && 
+              <div className="box saved-outfits-b">
+                <div>
+                  How to Use Your Closet:
+                  <img className="help-img" src={page1}></img>
+                  <img className="help-img" src={page2}></img>
+                  <img className="help-img" src={page3}></img>
+                </div>
+                <Button
+                  className="corner-button top-0 end-0"
+                  onClick={() => buttonClick("close-help")}
+                >
+                  close
+                </Button>
+              </div>}
+            </Button>
+          </div>
           <div className="weather-info">
             <Button
               className="top-a arrow"
