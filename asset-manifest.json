@@ -1,11 +1,14 @@
 {
   "files": {
-    "main.css": "/pocketcloset/static/css/main.7264c12d.css",
-    "main.js": "/pocketcloset/static/js/main.babb4aba.js",
+    "main.css": "/pocketcloset/static/css/main.1a611076.css",
+    "main.js": "/pocketcloset/static/js/main.372b0b69.js",
     "static/media/default_bg.png": "/pocketcloset/static/media/default_bg.ab71d22cd999390cbcbd.png",
     "static/media/background.png": "/pocketcloset/static/media/background.03585cc1f1907abd2f42.png",
     "static/media/default.png": "/pocketcloset/static/media/default.835ac76483685ae4de94.png",
+    "static/media/page2.png": "/pocketcloset/static/media/page2.44502023bf26990f232b.png",
+    "static/media/page1.png": "/pocketcloset/static/media/page1.d64569398e201f0f1a85.png",
     "static/media/rotate.jpg": "/pocketcloset/static/media/rotate.01b1bfe5fa5ae63340f3.jpg",
+    "static/media/page3.png": "/pocketcloset/static/media/page3.470878a81a880759b34a.png",
     "static/media/screenshotButton.webp": "/pocketcloset/static/media/screenshotButton.f1f6d9339dc4a7ac02af.webp",
     "static/media/snowfall.png": "/pocketcloset/static/media/snowfall.6ef4df1d33ef8e651ea6.png",
     "static/media/rosy_brown.jpeg": "/pocketcloset/static/media/rosy_brown.2a50278c574393785e71.jpeg",
@@ -21,11 +24,11 @@
     "static/media/blue.png": "/pocketcloset/static/media/blue.39ec9bbef46589a355f5.png",
     "static/media/clear.png": "/pocketcloset/static/media/clear.852c5cae09b84d48c256.png",
     "index.html": "/pocketcloset/index.html",
-    "main.7264c12d.css.map": "/pocketcloset/static/css/main.7264c12d.css.map",
-    "main.babb4aba.js.map": "/pocketcloset/static/js/main.babb4aba.js.map"
+    "main.1a611076.css.map": "/pocketcloset/static/css/main.1a611076.css.map",
+    "main.372b0b69.js.map": "/pocketcloset/static/js/main.372b0b69.js.map"
   },
   "entrypoints": [
-    "static/css/main.7264c12d.css",
-    "static/js/main.babb4aba.js"
+    "static/css/main.1a611076.css",
+    "static/js/main.372b0b69.js"
   ]
 }
