@@ -313,7 +313,7 @@ const Settings = (props) => {
     </Grid>
     <Nav className="logoutbutton-settings" variant="pills" defaultActiveKey="/">
       <Nav.Item>
-        <Nav.Link href="/" onClick={logOut}>Log Out</Nav.Link>
+        <Nav.Link href="/pocketcloset" onClick={logOut}>Log Out</Nav.Link>
       </Nav.Item>
     </Nav>
     {/* <Button className='logout' sx={{width: 250}} href="#" variant="contained" onClick={logOut}>Log Out</Button> */}

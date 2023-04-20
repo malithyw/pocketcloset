@@ -37,7 +37,7 @@ Button:not(.MuiButtonBase-root) {
 
 .box {
   background-color: white;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 26px;
   margin: 5px 10px;
   text-align: center;
