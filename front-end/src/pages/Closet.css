@@ -135,3 +135,15 @@ input::placeholder {
   width: 70%;
   height: auto;
 }
+
+.help-b {
+  color: #d77a97 !important;
+  position: fixed;
+  top: 8%;
+  left: 3%;
+  width: 89%;
+  height: 80%;
+  background-color: white;
+  padding-top: 50px;
+  z-index: 9999;
+}

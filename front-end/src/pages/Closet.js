@@ -281,11 +281,11 @@ const Closet = (props) => {
             paddingTop: "-40px",
           }}
         >
-          <div>
+          <div className= "corner-button top-0 start-0">
             <Button>
               <img src={help} onClick={() => buttonClick("help")}></img>
               {helpDoc && 
-              <div className="box saved-outfits-b">
+              <div className="box help-b">
                 <div>
                   How to Use Your Closet:
                   <img className="help-img" src={page1}></img>
