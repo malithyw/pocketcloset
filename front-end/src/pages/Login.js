@@ -25,7 +25,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getDatabase } from "firebase/database";
-import firstBackground from '../pages/backgrounds/blue.png';
+import firstBackground from '../pages/backgrounds/default_bg.png';
 
 const databaseURL = "https://pocketcloset-542e3-default-rtdb.firebaseio.com/";
 
