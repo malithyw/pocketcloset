@@ -37,7 +37,12 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import { updateEvent, deleteEvent } from "./staticEvents";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents, setVisibility }) => {
+const UpcomingEvents = ({
+  eventMap,
+  eventMapModifier,
+  setAboveEvents,
+  setVisibility,
+}) => {
   const [updateKey, setUpdateKey] = React.useState(-1);
   const [deleteKey, setDeleteKey] = React.useState(-1);
   const [outfitKey, setOutfitKey] = React.useState(-1);
@@ -248,7 +253,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents, setVisibil
         )}
         {eventMap.size !== 0 && (
           <List
-            sx={{ width: "90%", maxHeight: 180, overflow: "auto", padding: 0 }}
+            sx={{ width: "90%", maxHeight: 220, overflow: "auto", padding: 0 }}
           >
             {[...eventMap.entries()]
               .sort(function (x, y) {
@@ -458,7 +463,9 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents, setVisibil
                                   label="Start Time"
                                   defaultValue={printlog()}
                                   onChange={(e) => {
-                                    setEventStartTime(e.format("hh:mm aa").substring(0, 8));
+                                    setEventStartTime(
+                                      e.format("hh:mm aa").substring(0, 8)
+                                    );
                                     // printlog(e);
                                   }}
                                 />
@@ -487,7 +494,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents, setVisibil
                   </ListItem>
                 );
               })}
-              {setVisibility("show")}
+            {setVisibility("show")}
           </List>
         )}
       </Stack>
