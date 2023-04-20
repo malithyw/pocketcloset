@@ -1,0 +1,11 @@
+@media screen and (orientation: landscape) {
+  .main-display {
+    background-image: url("./images/rotate.jpg") !important;
+    background-size: 100vw 100vh;
+    z-index: 1000;
+  }
+
+  .main-display > * {
+    display: none;
+  }
+}

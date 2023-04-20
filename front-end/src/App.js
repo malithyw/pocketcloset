@@ -14,11 +14,11 @@ import closetPNG from "./images/hanger.png";
 import calendarPNG from "./images/calendar.png";
 import settingsPNG from "./images/settings.png";
 import useWindowDimensions from "./dimensions.js";
-import Login from "./pages/Login"
+import Login from "./pages/Login";
 import { useState } from "react";
 
 function App() {
-  const { height, width  } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState(new Map());
   const [internalUser, setInternalUser] = useState(null);
@@ -27,8 +27,16 @@ function App() {
   const [background, setBackground] = useState("../pages/backgrounds/blue.png");
 
   return (
-    <div style={{ backgroundImage:`url(${background})`,backgroundRepeat:"no-repeat",
-    height:height, width:width, overflow:"hidden"}}>
+    <div
+      className="main-display"
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundRepeat: "no-repeat",
+        height: "100%",
+        width: "100%",
+        overflow: "hidden",
+      }}
+    >
       {
         <div>
           <Login
@@ -103,19 +111,77 @@ function App() {
                 </Container>
               </Navbar>
               <Routes>
-                <Route exact path="/" element={<Calendar aboveEvents={events} setAboveEvents={setEvents} background={background} />} />
+                <Route
+                  exact
+                  path="/"
+                  element={
+                    <Calendar
+                      aboveEvents={events}
+                      setAboveEvents={setEvents}
+                      background={background}
+                    />
+                  }
+                />
                 <Route
                   exact
                   path="/calendar"
                   element={
-                    <Calendar aboveEvents={events} setAboveEvents={setEvents} background={background} />
+                    <Calendar
+                      aboveEvents={events}
+                      setAboveEvents={setEvents}
+                      background={background}
+                    />
                   }
                 />
-                <Route exact path="/closet" element={<Closet background={background} />} />
-                <Route exact path="/camera" element={<Camera user={user} background={background} />} />
-                <Route exact path="/home" element={<Calendar aboveEvents={events} setAboveEvents={setEvents} background={background} />} />
-                <Route exact path="/settings" element={<Settings setUser={setUser} setEvents={setEvents} setEmail={setEmail} setInternalUser={setInternalUser} setLoaded={setLoaded} events={events} internalUser={internalUser} setBackground={setBackground} background={background}/>} />
-                <Route exact path="*" element={<Calendar aboveEvents={events} setAboveEvents={setEvents} background={background} />} />
+                <Route
+                  exact
+                  path="/closet"
+                  element={<Closet background={background} />}
+                />
+                <Route
+                  exact
+                  path="/camera"
+                  element={<Camera user={user} background={background} />}
+                />
+                <Route
+                  exact
+                  path="/home"
+                  element={
+                    <Calendar
+                      aboveEvents={events}
+                      setAboveEvents={setEvents}
+                      background={background}
+                    />
+                  }
+                />
+                <Route
+                  exact
+                  path="/settings"
+                  element={
+                    <Settings
+                      setUser={setUser}
+                      setEvents={setEvents}
+                      setEmail={setEmail}
+                      setInternalUser={setInternalUser}
+                      setLoaded={setLoaded}
+                      events={events}
+                      internalUser={internalUser}
+                      setBackground={setBackground}
+                      background={background}
+                    />
+                  }
+                />
+                <Route
+                  exact
+                  path="*"
+                  element={
+                    <Calendar
+                      aboveEvents={events}
+                      setAboveEvents={setEvents}
+                      background={background}
+                    />
+                  }
+                />
               </Routes>
             </HashRouter>
           </div>
