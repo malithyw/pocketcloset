@@ -10,13 +10,14 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Alert from '@mui/material/Alert'
+import AlertTitle from '@mui/material/AlertTitle'
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { initializeApp, registerVersion } from "firebase/app";
 import { styled } from '@mui/material/styles';
 import { purple,red, pink, blue } from '@mui/material/colors';
-
+import Calendar from './Calendar'
 import "./Login.css"
 import {
   getAuth,
@@ -185,6 +186,8 @@ export default function Login({ events, setUser, setEvents, setEmail, email, set
     }
     console.log(map);
     setEvents(map);
+    console.log("just read it in");
+    // <Calendar aboveEvents={map} setAboveEvents={setEvents}/>;
   };
 
   const signIn = () => {

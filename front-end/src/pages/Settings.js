@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Settings.css';
-import useWindowDimensions from '../dimensions.js';
 import {
     updatePassword
 } from "firebase/auth";

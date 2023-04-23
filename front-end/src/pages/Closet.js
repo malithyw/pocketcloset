@@ -265,7 +265,7 @@ const Closet = (props) => {
   };
 
   return (
-    <Container>
+    <Container className="outfit-container">
       <Row className="top-row">
         <Col>
           {/* <Button className="top-button" onClick={() => buttonClick("help")}>
@@ -298,7 +298,7 @@ const Closet = (props) => {
         </Col>
       </Row>
       <Row className="outfit-b box position-relative">
-        <Col>
+        <Col className={outfitItems.length === 0 ? "empty" : "not-empty"}>
           <div>
             <Button
               className="corner-button top-0 start-0"
@@ -341,24 +341,22 @@ const Closet = (props) => {
         </Col>
       </Row>
       <Row className="clothing-b box">
-        <Col>
-          <div key={index} className="clothing-display">
-            {!searchEmpty &&
-              clothes.map((item, index) => (
-                <div>
-                  <img
-                    className="clothing-item"
-                    src={item.image}
-                    alt={item.name}
-                    onClick={() => logClothingItem(item.name)}
-                  />
-                  <Button onClick={() => deleteItem(item.name, index)}>
-                    <img src={deleteicon} alt="delete" />
-                  </Button>
-                </div>
-              ))}
-          </div>
-        </Col>
+        <div key={index} className="clothing-display">
+          {!searchEmpty &&
+            clothes.map((item, index) => (
+              <div>
+                <img
+                  className="clothing-item"
+                  src={item.image}
+                  alt={item.name}
+                  onClick={() => logClothingItem(item.name)}
+                />
+                <Button onClick={() => deleteItem(item.name, index)}>
+                  <img src={deleteicon} alt="delete" />
+                </Button>
+              </div>
+            ))}
+        </div>
       </Row>
       <Row>
         <Col className="search-bar justify-content-center d-flex align-items-center">

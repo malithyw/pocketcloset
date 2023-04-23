@@ -37,7 +37,7 @@ import CheckroomIcon from "@mui/icons-material/Checkroom";
 import { updateEvent, deleteEvent } from "./staticEvents";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
+const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents, setVisibility }) => {
   const [updateKey, setUpdateKey] = React.useState(-1);
   const [deleteKey, setDeleteKey] = React.useState(-1);
   const [outfitKey, setOutfitKey] = React.useState(-1);
@@ -181,7 +181,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
     switch (button) {
       case "saved-outfits":
         setShowSavedOutfits(true);
-        console.log("saved outfits buttons clicked");
+        // console.log("saved outfits buttons clicked");
         break;
       case "close-saved-outfits":
         setShowSavedOutfits(false);
@@ -192,12 +192,12 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
   };
 
   function printlog() {
-    console.log(eventStartTime)
+    // console.log(eventStartTime)
     let day = dayjs(eventDate);
     let hr = parseInt(eventStartTime.substring(0, 2));
     let min = parseInt(eventStartTime.substring(3, 5));
-    console.log("hourrr ", hr)
-    console.log("minnnn ", min)
+    // console.log("hourrr ", hr)
+    // console.log("minnnn ", min)
     if (eventStartTime.includes("am")) {
       if (hr === 12) {
         hr = 0;
@@ -210,7 +210,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
     day = day.hour(hr);
     day = day.minute(min);
     // day = day.
-    console.log(day)
+    // console.log(day)
     return day;
   }
 
@@ -231,6 +231,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
         <Typography variant="h5" component="div">
           Upcoming Events
         </Typography>
+        {console.log(eventMap)}
         {eventMap.size === 0 && (
           <Stack sx={{ justifyContent: "center", alignItems: "center" }}>
             <Typography variant="body1">
@@ -281,7 +282,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
                             setEventIsAllDay(value.isAllDay);
                             setEventStartTime(value.startTime);
                             // console.log(value.date);
-                            console.log("hereeeee ", value.startTime);
+                            // console.log("hereeeee ", value.startTime);
                           }}
                         >
                           <EditIcon />
@@ -451,7 +452,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
                                   label="All Day Event"
                                   onChange={toggleAllDay}
                                 />
-                                {console.log(eventStartTime)}
+                                {/* {console.log(eventStartTime)} */}
                                 <TimePicker
                                   disabled={eventIsAllDay}
                                   label="Start Time"
@@ -486,6 +487,7 @@ const UpcomingEvents = ({ eventMap, eventMapModifier, setAboveEvents }) => {
                   </ListItem>
                 );
               })}
+              {setVisibility("show")}
           </List>
         )}
       </Stack>
