@@ -16,42 +16,49 @@ const CameraComponent = (props) => {
         props.sendDataToCamera([image, true]);
     }
 
+    function addImage(imageList) {
+        console.log(imageList);
+        setPicture(imageList[0].dataURL);
+        setIfPicture(true);
+        props.sendDataToCamera([imageList[0].dataURL, true]);
+    }
+
     return (
         <div>
-        <div className="row">
-            <Webcam>
-                                {({ getScreenshot }) => (
-                                    <div className="otherButtons">
-                        <img className="screenshot" src={screenshotButton} onClick={() => {
-                                            //source code: https://www.npmjs.com/package/react-webcam
-                                            // timer = window.setTimeout(3000);
-                                            const image = getScreenshot();
-                                            takePhoto(image);
-                                        }}/>
-                                    </div>
-                                )}
-                            </Webcam>
+            <div className="row">
+                <Webcam>
+                    {({ getScreenshot }) => (
+                        <div className="otherButtons">
+                            <img className="screenshot" src={screenshotButton} onClick={() => {
+                                //source code: https://www.npmjs.com/package/react-webcam
+                                // timer = window.setTimeout(3000);
+                                const image = getScreenshot();
+                                takePhoto(image);
+                            }} />
                         </div>
-                        <div className="or">or</div>
-                        <div style={{textAlign:"center"}} className="row">
-                            <ImageUploading
-                                maxNumber={1}
-                                dataURLKey="dataURL"
-                                onChange={(imageList) => addImage(imageList)}
-                                >
-                                        {({
-                                            onImageUpload,
-                                        }) => (
-                                         <div>
-                                            <button onClick={onImageUpload}>
-                                                Upload Image Here
+                    )}
+                </Webcam>
+            </div>
+            <div className="or">or</div>
+            <div style={{ textAlign: "center" }} className="row">
+                <ImageUploading
+                    maxNumber={1}
+                    dataURLKey="dataURL"
+                    onChange={(imageList) => addImage(imageList)}
+                >
+                    {({
+                        onImageUpload,
+                    }) => (
+                            <div>
+                                <button onClick={onImageUpload}>
+                                    Upload Image Here
                                             </button>
-                                        </div>
-                                         )}
-                        </ImageUploading>
+                            </div>
+                        )}
+                </ImageUploading>
             </div>
         </div>
-        
+
     );
 }
 

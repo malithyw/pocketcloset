@@ -156,7 +156,9 @@ const Camera = (props) => {
                     <div className="row">
                         <a>Add to Your Virtual Closet</a>
                     </div>
-                    <img src={picture} />
+                    <div className="row">
+                        <img className="pic" src={picture} />
+                    </div>
                     <div className="row">
                         <TextField id="nameInput"label="Piece's Name" variant="filled" className="input" onChange={updateInput} />
                     </div>

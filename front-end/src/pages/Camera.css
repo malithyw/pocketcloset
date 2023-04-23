@@ -122,3 +122,10 @@ li:not(.MuiListItem-root) {
 .col-5 {
   padding-top: 5px;
 }
+
+.pic {
+  max-height: 350px;
+  width: auto;
+  height: auto;
+  max-width: 415px;
+}
