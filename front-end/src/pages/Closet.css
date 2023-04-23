@@ -21,12 +21,8 @@ Button:not(.MuiButtonBase-root) {
   padding-left: 5px;
 }
 
-.col {
-  padding-top: 30px;
-}
-
 .col.empty {
-  padding-top: 90px;
+  padding-top: 120px;
 }
 
 .col.not-empty {
@@ -41,7 +37,7 @@ Button:not(.MuiButtonBase-root) {
 
 .box {
   background-color: white;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 26px;
   margin: 5px 10px;
   text-align: center;
@@ -133,4 +129,21 @@ input::placeholder {
   background-color: white;
   z-index: 999;
   padding-top: 30px;
+}
+
+.help-img {
+  width: 70%;
+  height: auto;
+}
+
+.help-b {
+  color: #d77a97 !important;
+  position: fixed;
+  top: 8%;
+  left: 3%;
+  width: 89%;
+  height: 80%;
+  background-color: white;
+  padding-top: 50px;
+  z-index: 9999;
 }
