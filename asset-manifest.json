@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/pocketcloset/static/css/main.1a611076.css",
-    "main.js": "/pocketcloset/static/js/main.372b0b69.js",
+    "main.js": "/pocketcloset/static/js/main.33b86841.js",
     "static/media/default_bg.png": "/pocketcloset/static/media/default_bg.ab71d22cd999390cbcbd.png",
     "static/media/background.png": "/pocketcloset/static/media/background.03585cc1f1907abd2f42.png",
     "static/media/default.png": "/pocketcloset/static/media/default.835ac76483685ae4de94.png",
@@ -25,10 +25,10 @@
     "static/media/clear.png": "/pocketcloset/static/media/clear.852c5cae09b84d48c256.png",
     "index.html": "/pocketcloset/index.html",
     "main.1a611076.css.map": "/pocketcloset/static/css/main.1a611076.css.map",
-    "main.372b0b69.js.map": "/pocketcloset/static/js/main.372b0b69.js.map"
+    "main.33b86841.js.map": "/pocketcloset/static/js/main.33b86841.js.map"
   },
   "entrypoints": [
     "static/css/main.1a611076.css",
-    "static/js/main.372b0b69.js"
+    "static/js/main.33b86841.js"
   ]
 }
